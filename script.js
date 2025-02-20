@@ -151,6 +151,12 @@ function showPage(pageId) {
     // アナリティクスページが表示された場合、グラフを初期化
     if (pageId === 'analyticsPage') {
         initAnalyticsChart();
+        // 既存のグラフを破棄して再初期化
+        const existingChart = Chart.getChart('retentionChart');
+        if (existingChart) {
+            existingChart.destroy();
+        }
+        initRetentionChart();
     }
 }
 
@@ -511,4 +517,59 @@ function generateOverviewData(period) {
         studyTime: Math.round(base.studyTime * (1 + Math.random() * variance)),
         actionCount: Math.round(base.actionCount * (1 + Math.random() * variance) * 10) / 10
     };
+}
+
+// 学習継続率のグラフ初期化
+function initRetentionChart() {
+    const canvas = document.getElementById('retentionChart');
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['1週目', '2週目', '3週目', '4週目', '5週目', '6週目', '7週目', '8週目'],
+            datasets: [{
+                label: '学習継続率',
+                data: [100, 92, 85, 78, 72, 68, 65, 62],
+                borderColor: '#1a237e',
+                backgroundColor: 'rgba(26, 35, 126, 0.1)',
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return context.parsed.y + '%';
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    ticks: {
+                        callback: function(value) {
+                            return value + '%';
+                        }
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    }
+                }
+            }
+        }
+    });
 } 

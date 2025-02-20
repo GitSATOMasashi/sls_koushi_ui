@@ -903,6 +903,8 @@ header {
     border-radius: 8px;
     padding: 1.25rem;
     flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .metric-card h3 {
@@ -911,47 +913,123 @@ header {
     margin-bottom: 1rem;
 }
 
-/* スキル習得率のスタイル */
-.skill-progress {
-    background: #e9ecef;
-    border-radius: 6px;
-    height: 8px;
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 1rem;
-}
-
-.skill-bar {
-    background: var(--primary-color);
-    height: 100%;
-    transition: width 0.3s ease;
-}
-
-.skill-details {
+.retention-stats {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 1.5rem;
+    height: 100%;
+    justify-content: center;
+}
+
+.retention-main {
+    text-align: center;
+}
+
+.retention-main .current-rate {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    display: block;
+}
+
+.retention-main .period {
     font-size: 0.9rem;
     color: #666;
+    margin-top: 0.25rem;
+    display: block;
 }
 
-/* モチベーション指数のスタイル */
-.motivation-score {
+.retention-details {
     display: flex;
-    align-items: baseline;
-    justify-content: center;
-    margin-top: 2rem;
+    justify-content: space-between;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.motivation-score .score {
-    font-size: 3rem;
-    font-weight: 600;
-    color: #1a237e;
+.retention-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
 }
 
-.motivation-score .max {
-    font-size: 1.25rem;
+.retention-item .label {
+    font-size: 0.8rem;
     color: #666;
-    margin-left: 0.25rem;
+}
+
+.retention-item .value {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.retention-item .value.positive {
+    color: #4caf50;
+}
+
+/* 共通のスタイル */
+.skill-stats,
+.retention-stats,
+.motivation-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    height: 100%;
+    justify-content: center;
+}
+
+.skill-main,
+.retention-main,
+.motivation-main {
+    text-align: center;
+}
+
+.current-rate {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    display: block;
+}
+
+.period {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 0.25rem;
+    display: block;
+}
+
+.skill-details,
+.retention-details,
+.motivation-details {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.skill-item,
+.retention-item,
+.motivation-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.label {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.value {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.value.positive {
+    color: #4caf50;
 }
 
 /* アクション実行状況のスタイル */
