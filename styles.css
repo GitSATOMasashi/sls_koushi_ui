@@ -1,0 +1,1053 @@
+:root {
+    --primary-color: #1a237e;
+    --secondary-color: #2196f3;
+    --background-color: #f5f5f5;
+    --text-color: #333;
+    --sidebar-width: 240px;
+    --card-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    --transition-speed: 0.2s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--background-color);
+}
+
+header {
+    background-color: white;
+    color: var(--primary-color);
+    padding: 8px 1rem;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0.5rem 1.5rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--primary-color);
+}
+
+.logo-image {
+    height: 20px;
+    width: auto;
+    display: block;
+}
+
+.logo-suffix {
+    font-size: 0.9rem;
+    font-weight: 500;
+    opacity: 0.7;
+    padding-left: 0.5rem;
+    border-left: 1px solid rgba(26, 35, 126, 0.2);
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.course-select {
+    min-width: 200px;
+    padding: 0.4rem 1rem;
+    border-radius: 4px;
+    border: 1px solid rgba(26, 35, 126, 0.2);
+    background-color: white;
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: border-color var(--transition-speed) ease;
+}
+
+.course-select:hover {
+    border-color: var(--primary-color);
+}
+
+.course-select option {
+    background-color: white;
+    color: var(--text-color);
+}
+
+.profile-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid rgba(26, 35, 126, 0.2);
+    background-color: white;
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+}
+
+.profile-btn:hover {
+    border-color: var(--primary-color);
+    background-color: rgba(26, 35, 126, 0.05);
+}
+
+.main-container {
+    display: flex;
+    min-height: calc(100vh - 52px);
+    margin-top: 52px;
+}
+
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: white;
+    padding: 1.5rem 0;
+    box-shadow: var(--card-shadow);
+    position: fixed;
+    top: 52px;
+    bottom: 0;
+    overflow-y: auto;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar li {
+    padding: 0.75rem 1rem;
+    margin: 0.25rem 0;
+    transition: background-color var(--transition-speed) ease;
+    position: relative;
+}
+
+.sidebar li:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+.sidebar li.active {
+    background-color: rgba(0, 0, 0, 0.08);
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0.5rem;
+}
+
+.sidebar a .link-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.sidebar a .icon {
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    fill: currentColor;
+    opacity: 0.7;
+}
+
+.sidebar li:hover .icon {
+    opacity: 0.9;
+}
+
+.sidebar li.active .icon {
+    opacity: 1;
+}
+
+.sidebar a .arrow {
+    color: #666;
+    font-size: 0.8rem;
+    opacity: 0.5;
+}
+
+.sidebar li:hover .arrow {
+    opacity: 0.7;
+}
+
+.content {
+    flex: 1;
+    padding: 2.5rem;
+    overflow-y: auto;
+    margin-left: var(--sidebar-width);
+}
+
+.content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.content::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.content::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.dashboard-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.progress-overview {
+    margin-top: 1rem;
+}
+
+.stats {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-item .number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--secondary-color);
+}
+
+.stat-item .label {
+    color: #666;
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+
+.task-management {
+    background-color: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.action-map-grid {
+    display: flex;
+    gap: 24px;
+    padding: 0.5rem 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    white-space: nowrap;
+}
+
+/* スクロールバーのスタイリング */
+.action-map-grid::-webkit-scrollbar {
+    height: 8px;
+}
+
+.action-map-grid::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.action-map-grid::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+.action-map-grid::-webkit-scrollbar-thumb:hover {
+    background: #999;
+}
+
+.action-map-card {
+    flex: 0 0 auto;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    transition: all var(--transition-speed) ease;
+    position: relative;
+    width: 300px;
+    height: 400px;
+}
+
+.action-map-card:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.action-map-image {
+    width: 100%;
+    height: 160px;
+    background: var(--primary-color);
+    position: relative;
+}
+
+.action-map-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.action-map-info {
+    padding: 16px;
+    height: calc(420px - 160px);
+    display: flex;
+    flex-direction: column;
+}
+
+.action-map-info h3 {
+    margin: 0 0 12px;
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--text-color);
+    line-height: 1.4;
+}
+
+.action-map-info .continue-btn {
+    margin-top: 12px;
+    padding: 8px;
+}
+
+.continue-btn {
+    width: 100%;
+    padding: 0.8rem;
+    background: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all var(--transition-speed) ease;
+    font-size: 0.9rem;
+    letter-spacing: 0.3px;
+}
+
+.continue-btn:hover {
+    background-color: #1976d2;
+    transform: translateY(-1px);
+}
+
+.action-map-section {
+    margin-bottom: 2.5rem;
+}
+
+.action-map-section-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--text-color);
+    margin-bottom: 0;
+}
+
+/* チュートリアルカードのスタイル */
+.tutorial-card {
+    background: var(--secondary-color);
+    border-radius: 12px;
+    padding: 2.5rem;
+    margin-bottom: 2.5rem;
+    color: white;
+    background-image: linear-gradient(135deg, #2196f3 0%, #1976d2 100%),
+                      linear-gradient(45deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+    box-shadow: var(--card-shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+.tutorial-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+    pointer-events: none;
+}
+
+.tutorial-content {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.tutorial-content h2 {
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    letter-spacing: 0.5px;
+}
+
+.tutorial-content p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+}
+
+.tutorial-btn {
+    background: white;
+    color: var(--secondary-color);
+    border: none;
+    border-radius: 6px;
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all var(--transition-speed) ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.tutorial-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+.tutorial-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.8), rgba(255,255,255,0));
+    opacity: 0;
+    transition: opacity var(--transition-speed) ease;
+}
+
+.tutorial-btn:hover::after {
+    opacity: 1;
+}
+
+.play-icon {
+    font-size: 0.8rem;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .tutorial-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .tutorial-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .tutorial-content p {
+        font-size: 1rem;
+    }
+}
+
+/* モーダルのスタイル */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2000;
+}
+
+.modal.active {
+    display: block;
+}
+
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(4px);
+}
+
+.modal-container {
+    position: relative;
+    width: 90%;
+    max-width: 800px;
+    margin: 40px auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    overflow: hidden;
+}
+
+.modal-header {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+    padding: 0.5rem;
+}
+
+.modal-content {
+    padding: 1.5rem;
+}
+
+.modal-actions {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.complete-tutorial-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+}
+
+.complete-tutorial-btn:hover {
+    background: #151b59;
+    transform: translateY(-1px);
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 アスペクト比 */
+    height: 0;
+    overflow: hidden;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* アナリティクス概要のスタイル */
+.analytics-overview {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2.5rem;
+    box-shadow: var(--card-shadow);
+}
+
+.analytics-header {
+    margin-bottom: 1.5rem;
+}
+
+.analytics-header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.analytics-header h2 {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.period-selector {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.period-selector button {
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 6px;
+    background: white;
+    color: var(--text-color);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+    min-width: 80px;
+}
+
+.period-selector button.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+}
+
+.analytics-card {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1.25rem;
+}
+
+.analytics-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.analytics-title {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.analytics-value {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--text-color);
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+}
+
+.analytics-value .main-value {
+    font-size: 1.75rem;
+}
+
+.analytics-value .sub-value {
+    font-size: 1rem;
+    color: #666;
+    font-weight: 500;
+}
+
+.analytics-value .unit {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #666;
+}
+
+.analytics-trend {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.9rem;
+}
+
+.analytics-trend.positive {
+    color: #2e7d32;
+}
+
+.analytics-trend.negative {
+    color: #d32f2f;
+}
+
+.trend-rate {
+    color: #666;
+}
+
+.trend-rate .unit {
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+.trend-period {
+    color: #666;
+    margin-left: 0.25rem;
+    position: relative;
+    padding-left: 0.5rem;
+}
+
+.trend-period::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #ccc;
+}
+
+.action-map-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 0px;
+    margin: 10px auto;
+}
+
+.action-map-stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.action-map-stat-label {
+    font-size: 12px;
+    color: #999;
+    font-weight: 500;
+}
+
+.action-map-stat-value {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-color);
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+}
+
+.action-map-stat-value .unit {
+    font-size: 12px;
+    color: #666;
+    margin-left: 1px;
+}
+
+.action-map-stat-value .rate {
+    font-size: 13px;
+    color: #666;
+    margin-left: 2px;
+}
+
+.course-section {
+    margin-bottom: 32px;
+}
+
+.course-section-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--text-color);
+    margin-bottom: 0;
+}
+
+/* グラフセクション */
+.graph-section {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    box-shadow: var(--card-shadow);
+}
+
+.graph-header {
+    margin-bottom: 1.5rem;
+}
+
+.graph-header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.graph-title {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.graph-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-end;
+}
+
+.period-selector {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.period-selector button {
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 6px;
+    background: white;
+    color: var(--text-color);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+    min-width: 80px;
+}
+
+.period-selector button.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.metric-selector {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.metric-selector button {
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 6px;
+    background: white;
+    color: var(--text-color);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+}
+
+.metric-selector button.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.graph-container {
+    height: 400px;
+    position: relative;
+    width: 100%;
+    margin-top: 1.5rem;
+}
+
+.period-controls {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.date-range-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 6px;
+    background: white;
+    color: var(--text-color);
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.quick-periods {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.graph-type-selector {
+    display: flex;
+    gap: 0.25rem;
+    padding: 0.25rem;
+    background: #f5f5f5;
+    border-radius: 6px;
+}
+
+.graph-options {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.graph-options button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 6px;
+    background: white;
+    color: var(--text-color);
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+/* 成長指標のスタイル */
+.growth-metrics {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    box-shadow: var(--card-shadow);
+}
+
+.section-header {
+    margin-bottom: 1.5rem;
+}
+
+.section-header h2 {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.metrics-grid {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.metric-card {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1.25rem;
+    flex: 1;
+}
+
+.metric-card h3 {
+    font-size: 1rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+}
+
+/* スキル習得率のスタイル */
+.skill-progress {
+    background: #e9ecef;
+    border-radius: 6px;
+    height: 8px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.skill-bar {
+    background: var(--primary-color);
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+.skill-details {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* モチベーション指数のスタイル */
+.motivation-score {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.motivation-score .score {
+    font-size: 3rem;
+    font-weight: 600;
+    color: #1a237e;
+}
+
+.motivation-score .max {
+    font-size: 1.25rem;
+    color: #666;
+    margin-left: 0.25rem;
+}
+
+/* アクション実行状況のスタイル */
+.action-analytics {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    box-shadow: var(--card-shadow);
+}
+
+.action-status-grid {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.status-card {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1.25rem;
+    flex: 1;
+}
+
+.status-card.success {
+    border-left: 4px solid #4caf50;
+}
+
+.status-card.warning {
+    border-left: 4px solid #ff9800;
+}
+
+.status-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.status-header h3 {
+    font-size: 1rem;
+    color: var(--text-color);
+}
+
+.success-rate {
+    color: #4caf50;
+    font-weight: 500;
+}
+
+.warning-count {
+    color: #ff9800;
+    font-weight: 500;
+}
+
+.action-list {
+    list-style: none;
+}
+
+.action-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.action-list li:last-child {
+    border-bottom: none;
+}
+
+.action-name {
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.completion-rate {
+    color: #4caf50;
+    font-weight: 500;
+}
+
+.error-rate {
+    color: #f44336;
+    font-weight: 500;
+}
+
+.support-btn {
+    padding: 0.25rem 0.75rem;
+    border: 1px solid #ff9800;
+    border-radius: 4px;
+    background: transparent;
+    color: #ff9800;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+}
+
+.support-btn:hover {
+    background: #ff9800;
+    color: white;
+} 

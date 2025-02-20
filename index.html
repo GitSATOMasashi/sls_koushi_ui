@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success-Learning.AI - 講師用ダッシュボード</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="https://utagesystem.s3.ap-northeast-1.amazonaws.com/GYbKT7Y9d0eR/v21k0xxYM86HKL31LN1fgIk7ZOzJ0FzbXYQ7AaPh.png" alt="Success-Learning.AI" class="logo-image">
+                <span class="logo-suffix">for Teacher</span>
+            </div>
+            <div class="header-right">
+                <select class="course-select">
+                    <option>デザジュク</option>
+                    <option>スキルプラス</option>
+                    <option>キャリアパーク</option>
+                </select>
+                <button class="profile-btn">P</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar">
+            <ul>
+                <li class="active" data-page="homePage"><a href="#">
+                    <div class="link-content">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                        ホーム
+                    </div>
+                    <span class="arrow">›</span>
+                </a></li>
+                <li><a href="#">
+                    <div class="link-content">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                        検索
+                    </div>
+                    <span class="arrow">›</span>
+                </a></li>
+                <li><a href="#">
+                    <div class="link-content">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>
+                        チュートリアル
+                    </div>
+                    <span class="arrow">›</span>
+                </a></li>
+                <li data-page="analyticsPage"><a href="#">
+                    <div class="link-content">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg>
+                        アナリティクス
+                    </div>
+                    <span class="arrow">›</span>
+                </a></li>
+                <li><a href="#">
+                    <div class="link-content">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                        受講生管理
+                    </div>
+                    <span class="arrow">›</span>
+                </a></li>
+                <li><a href="#">
+                    <div class="link-content">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"/></svg>
+                        質問管理
+                    </div>
+                    <span class="arrow">›</span>
+                </a></li>
+                <li><a href="#">
+                    <div class="link-content">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
+                        APIキー設定
+                    </div>
+                    <span class="arrow">›</span>
+                </a></li>
+                <li><a href="#">
+                    <div class="link-content">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
+                        ログアウト
+                    </div>
+                    <span class="arrow">›</span>
+                </a></li>
+            </ul>
+        </nav>
+
+        <main class="content" id="mainContent">
+            <!-- ホームページコンテンツ -->
+            <div id="homePage">
+                <div class="analytics-overview">
+                    <div class="analytics-header">
+                        <div class="analytics-header-content">
+                            <h2>📈 アナリティクス概要</h2>
+                            <div class="period-selector">
+                                <button data-period="daily" class="active">日次</button>
+                                <button data-period="weekly">週次</button>
+                                <button data-period="monthly">月次</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="analytics-grid">
+                        <div class="analytics-card">
+                            <div class="analytics-content">
+                                <div class="analytics-title">総受講者数</div>
+                                <div class="analytics-value">
+                                    <span class="main-value">425</span>
+                                    <span class="unit">名</span>
+                                </div>
+                                <div class="analytics-trend positive">
+                                    <span class="trend-icon">↑</span>
+                                    <span class="trend-value">420名</span>
+                                    <span class="trend-period">前日比</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="analytics-card">
+                            <div class="analytics-content">
+                                <div class="analytics-title">アクティブユーザー数</div>
+                                <div class="analytics-value">
+                                    <span class="main-value">324</span>
+                                    <span class="sub-value">(76<span class="unit">%</span>)</span>
+                                </div>
+                                <div class="analytics-trend positive">
+                                    <span class="trend-icon">↑</span>
+                                    <span class="trend-value">12%</span>
+                                    <span class="trend-period">前日比</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="analytics-card">
+                            <div class="analytics-content">
+                                <div class="analytics-title">平均学習時間</div>
+                                <div class="analytics-value">
+                                    <span class="main-value">42</span>
+                                    <span class="unit">分/日</span>
+                                </div>
+                                <div class="analytics-trend positive">
+                                    <span class="trend-icon">↑</span>
+                                    <span class="trend-value">8%</span>
+                                    <span class="trend-period">前日比</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="analytics-card">
+                            <div class="analytics-content">
+                                <div class="analytics-title">平均アクション完了数</div>
+                                <div class="analytics-value">
+                                    <span class="main-value">3.8</span>
+                                    <span class="unit">個/日</span>
+                                </div>
+                                <div class="analytics-trend negative">
+                                    <span class="trend-icon">↓</span>
+                                    <span class="trend-value">3%</span>
+                                    <span class="trend-period">前日比</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tutorial-card">
+                    <div class="tutorial-content">
+                        <h2>チュートリアルを始めよう</h2>
+                        <p>動画を見て、Success-Learning.AIでのコース作成をマスターしましょう。</p>
+                        <button class="tutorial-btn">
+                            <span class="play-icon">▶</span>
+                            チュートリアルを開始
+                        </button>
+                    </div>
+                </div>
+
+                <div class="course-section">
+                    <h2 class="course-section-title">広告運用コース</h2>
+                    <div class="action-map-grid">
+                        <div class="action-map-card">
+                            <div class="action-map-image">
+                                <img src="https://utagesystem.s3.ap-northeast-1.amazonaws.com/GYbKT7Y9d0eR/site/6a481X2SSRhF/pLRD7to7jpTuzEF9h60Ws46qDPvQv5Cb5PQZknwv.jpg" alt="AI副業 1on1全体グルコン">
+                            </div>
+                            <div class="action-map-info">
+                                <h3>ハイクラス営業完全攻略</h3>
+                                <div class="action-map-stats">
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">総受講者数</span>
+                                        <span class="action-map-stat-value">125<span class="unit">名</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">アクティブユーザー数</span>
+                                        <span class="action-map-stat-value">98<span class="unit">名</span><span class="rate">(78%)</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均学習時間</span>
+                                        <span class="action-map-stat-value">45<span class="unit">分/日</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均アクション完了数</span>
+                                        <span class="action-map-stat-value">4.2<span class="unit">個/日</span></span>
+                                    </div>
+                                </div>
+                                <button class="continue-btn">編集する</button>
+                            </div>
+                        </div>
+                        <div class="action-map-card">
+                            <div class="action-map-image">
+                                <img src="https://utagesystem.s3.ap-northeast-1.amazonaws.com/GYbKT7Y9d0eR/site/6a481X2SSRhF/MupcLdKNz0yQzbiozAs3z2i1lps4c7hrnHgt77wf.jpg" alt="特別単価アフィリエイト">
+                            </div>
+                            <div class="action-map-info">
+                                <h3>デザジュク営業完全攻略</h3>
+                                <div class="action-map-stats">
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">総受講者数</span>
+                                        <span class="action-map-stat-value">82<span class="unit">名</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">アクティブユーザー数</span>
+                                        <span class="action-map-stat-value">65<span class="unit">名</span><span class="rate">(79%)</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均学習時間</span>
+                                        <span class="action-map-stat-value">38<span class="unit">分/日</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均アクション完了数</span>
+                                        <span class="action-map-stat-value">3.8<span class="unit">個/日</span></span>
+                                    </div>
+                                </div>
+                                <button class="continue-btn">編集する</button>
+                            </div>
+                        </div>
+                        <div class="action-map-card">
+                            <div class="action-map-image">
+                                <img src="https://utagesystem.s3.ap-northeast-1.amazonaws.com/GYbKT7Y9d0eR/site/6a481X2SSRhF/pLRD7to7jpTuzEF9h60Ws46qDPvQv5Cb5PQZknwv.jpg" alt="AI副業 1on1全体グルコン">
+                            </div>
+                            <div class="action-map-info">
+                                <h3>CW営業完全攻略</h3>
+                                <div class="action-map-stats">
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">総受講者数</span>
+                                        <span class="action-map-stat-value">94<span class="unit">名</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">アクティブユーザー数</span>
+                                        <span class="action-map-stat-value">72<span class="unit">名</span><span class="rate">(77%)</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均学習時間</span>
+                                        <span class="action-map-stat-value">41<span class="unit">分/日</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均アクション完了数</span>
+                                        <span class="action-map-stat-value">4.0<span class="unit">個/日</span></span>
+                                    </div>
+                                </div>
+                                <button class="continue-btn">編集する</button>
+                            </div>
+                        </div>
+                        <div class="action-map-card">
+                            <img src="https://utagesystem.s3.ap-northeast-1.amazonaws.com/GYbKT7Y9d0eR/site/uTzZ3LHOahMm/neO1LGJSprsMrrW9fkTjEBvBN30sPmYXzRddEu6f.jpg" alt="SNSマーケティング基礎" class="action-map-image">
+                            <div class="action-map-info">
+                                <h3>SNSマーケティング基礎</h3>
+                                <div class="action-map-stats">
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">総受講者数</span>
+                                        <span class="action-map-stat-value">156<span class="unit">名</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">アクティブユーザー数</span>
+                                        <span class="action-map-stat-value">128<span class="unit">名</span><span class="rate">(82%)</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均学習時間</span>
+                                        <span class="action-map-stat-value">45<span class="unit">分/日</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均アクション完了数</span>
+                                        <span class="action-map-stat-value">4.2<span class="unit">個/日</span></span>
+                                    </div>
+                                </div>
+                                <button class="continue-btn">編集する</button>
+                            </div>
+                        </div>
+                        <div class="action-map-card">
+                            <img src="https://utagesystem.s3.ap-northeast-1.amazonaws.com/GYbKT7Y9d0eR/site/uTzZ3LHOahMm/Pyc3vWf1Ig0wweGKF3BBe7kSK2gfWHK8AweiqSRB.jpg" alt="Instagram広告実践" class="action-map-image">
+                            <div class="action-map-info">
+                                <h3>Instagram広告実践</h3>
+                                <div class="action-map-stats">
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">総受講者数</span>
+                                        <span class="action-map-stat-value">98<span class="unit">名</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">アクティブユーザー数</span>
+                                        <span class="action-map-stat-value">85<span class="unit">名</span><span class="rate">(87%)</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均学習時間</span>
+                                        <span class="action-map-stat-value">52<span class="unit">分/日</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均アクション完了数</span>
+                                        <span class="action-map-stat-value">3.9<span class="unit">個/日</span></span>
+                                    </div>
+                                </div>
+                                <button class="continue-btn">編集する</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-section">
+                    <h2 class="course-section-title">SNSマーケティングコース</h2>
+                    <div class="action-map-grid">
+                        <div class="action-map-card">
+                            <div class="action-map-image">
+                                <img src="https://utagesystem.s3.ap-northeast-1.amazonaws.com/GYbKT7Y9d0eR/site/6a481X2SSRhF/pLRD7to7jpTuzEF9h60Ws46qDPvQv5Cb5PQZknwv.jpg" alt="AI副業 1on1全体グルコン">
+                            </div>
+                            <div class="action-map-info">
+                                <h3>ハイクラス営業完全攻略</h3>
+                                <div class="action-map-stats">
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">総受講者数</span>
+                                        <span class="action-map-stat-value">125<span class="unit">名</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">アクティブユーザー数</span>
+                                        <span class="action-map-stat-value">98<span class="unit">名</span><span class="rate">(78%)</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均学習時間</span>
+                                        <span class="action-map-stat-value">45<span class="unit">分/日</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均アクション完了数</span>
+                                        <span class="action-map-stat-value">4.2<span class="unit">個/日</span></span>
+                                    </div>
+                                </div>
+                                <button class="continue-btn">編集する</button>
+                            </div>
+                        </div>
+                        <div class="action-map-card">
+                            <div class="action-map-image">
+                                <img src="https://utagesystem.s3.ap-northeast-1.amazonaws.com/GYbKT7Y9d0eR/site/6a481X2SSRhF/MupcLdKNz0yQzbiozAs3z2i1lps4c7hrnHgt77wf.jpg" alt="特別単価アフィリエイト">
+                            </div>
+                            <div class="action-map-info">
+                                <h3>デザジュク営業完全攻略</h3>
+                                <div class="action-map-stats">
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">総受講者数</span>
+                                        <span class="action-map-stat-value">82<span class="unit">名</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">アクティブユーザー数</span>
+                                        <span class="action-map-stat-value">65<span class="unit">名</span><span class="rate">(79%)</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均学習時間</span>
+                                        <span class="action-map-stat-value">38<span class="unit">分/日</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均アクション完了数</span>
+                                        <span class="action-map-stat-value">3.8<span class="unit">個/日</span></span>
+                                    </div>
+                                </div>
+                                <button class="continue-btn">編集する</button>
+                            </div>
+                        </div>
+                        <div class="action-map-card">
+                            <div class="action-map-image">
+                                <img src="https://utagesystem.s3.ap-northeast-1.amazonaws.com/GYbKT7Y9d0eR/site/6a481X2SSRhF/pLRD7to7jpTuzEF9h60Ws46qDPvQv5Cb5PQZknwv.jpg" alt="AI副業 1on1全体グルコン">
+                            </div>
+                            <div class="action-map-info">
+                                <h3>CW営業完全攻略</h3>
+                                <div class="action-map-stats">
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">総受講者数</span>
+                                        <span class="action-map-stat-value">94<span class="unit">名</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">アクティブユーザー数</span>
+                                        <span class="action-map-stat-value">72<span class="unit">名</span><span class="rate">(77%)</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均学習時間</span>
+                                        <span class="action-map-stat-value">41<span class="unit">分/日</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均アクション完了数</span>
+                                        <span class="action-map-stat-value">4.0<span class="unit">個/日</span></span>
+                                    </div>
+                                </div>
+                                <button class="continue-btn">編集する</button>
+                            </div>
+                        </div>
+                        <div class="action-map-card">
+                            <img src="https://utagesystem.s3.ap-northeast-1.amazonaws.com/GYbKT7Y9d0eR/site/uTzZ3LHOahMm/neO1LGJSprsMrrW9fkTjEBvBN30sPmYXzRddEu6f.jpg" alt="SNSマーケティング基礎" class="action-map-image">
+                            <div class="action-map-info">
+                                <h3>SNSマーケティング基礎</h3>
+                                <div class="action-map-stats">
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">総受講者数</span>
+                                        <span class="action-map-stat-value">156<span class="unit">名</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">アクティブユーザー数</span>
+                                        <span class="action-map-stat-value">128<span class="unit">名</span><span class="rate">(82%)</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均学習時間</span>
+                                        <span class="action-map-stat-value">45<span class="unit">分/日</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均アクション完了数</span>
+                                        <span class="action-map-stat-value">4.2<span class="unit">個/日</span></span>
+                                    </div>
+                                </div>
+                                <button class="continue-btn">編集する</button>
+                            </div>
+                        </div>
+                        <div class="action-map-card">
+                            <img src="https://utagesystem.s3.ap-northeast-1.amazonaws.com/GYbKT7Y9d0eR/site/uTzZ3LHOahMm/Pyc3vWf1Ig0wweGKF3BBe7kSK2gfWHK8AweiqSRB.jpg" alt="Instagram広告実践" class="action-map-image">
+                            <div class="action-map-info">
+                                <h3>Instagram広告実践</h3>
+                                <div class="action-map-stats">
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">総受講者数</span>
+                                        <span class="action-map-stat-value">98<span class="unit">名</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">アクティブユーザー数</span>
+                                        <span class="action-map-stat-value">85<span class="unit">名</span><span class="rate">(87%)</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均学習時間</span>
+                                        <span class="action-map-stat-value">52<span class="unit">分/日</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均アクション完了数</span>
+                                        <span class="action-map-stat-value">3.9<span class="unit">個/日</span></span>
+                                    </div>
+                                </div>
+                                <button class="continue-btn">編集する</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-section">
+                    <h2 class="course-section-title">Webディレクションコース</h2>
+                    <div class="action-map-grid">
+                        <div class="action-map-card">
+                            <div class="action-map-image">
+                                <img src="https://utagesystem.s3.ap-northeast-1.amazonaws.com/GYbKT7Y9d0eR/site/6a481X2SSRhF/pLRD7to7jpTuzEF9h60Ws46qDPvQv5Cb5PQZknwv.jpg" alt="AI副業 1on1全体グルコン">
+                            </div>
+                            <div class="action-map-info">
+                                <h3>ハイクラス営業完全攻略</h3>
+                                <div class="action-map-stats">
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">総受講者数</span>
+                                        <span class="action-map-stat-value">125<span class="unit">名</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">アクティブユーザー数</span>
+                                        <span class="action-map-stat-value">98<span class="unit">名</span><span class="rate">(78%)</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均学習時間</span>
+                                        <span class="action-map-stat-value">45<span class="unit">分/日</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均アクション完了数</span>
+                                        <span class="action-map-stat-value">4.2<span class="unit">個/日</span></span>
+                                    </div>
+                                </div>
+                                <button class="continue-btn">編集する</button>
+                            </div>
+                        </div>
+                        <div class="action-map-card">
+                            <div class="action-map-image">
+                                <img src="https://utagesystem.s3.ap-northeast-1.amazonaws.com/GYbKT7Y9d0eR/site/6a481X2SSRhF/MupcLdKNz0yQzbiozAs3z2i1lps4c7hrnHgt77wf.jpg" alt="特別単価アフィリエイト">
+                            </div>
+                            <div class="action-map-info">
+                                <h3>デザジュク営業完全攻略</h3>
+                                <div class="action-map-stats">
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">総受講者数</span>
+                                        <span class="action-map-stat-value">82<span class="unit">名</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">アクティブユーザー数</span>
+                                        <span class="action-map-stat-value">65<span class="unit">名</span><span class="rate">(79%)</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均学習時間</span>
+                                        <span class="action-map-stat-value">38<span class="unit">分/日</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均アクション完了数</span>
+                                        <span class="action-map-stat-value">3.8<span class="unit">個/日</span></span>
+                                    </div>
+                                </div>
+                                <button class="continue-btn">編集する</button>
+                            </div>
+                        </div>
+                        <div class="action-map-card">
+                            <div class="action-map-image">
+                                <img src="https://utagesystem.s3.ap-northeast-1.amazonaws.com/GYbKT7Y9d0eR/site/6a481X2SSRhF/pLRD7to7jpTuzEF9h60Ws46qDPvQv5Cb5PQZknwv.jpg" alt="AI副業 1on1全体グルコン">
+                            </div>
+                            <div class="action-map-info">
+                                <h3>CW営業完全攻略</h3>
+                                <div class="action-map-stats">
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">総受講者数</span>
+                                        <span class="action-map-stat-value">94<span class="unit">名</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">アクティブユーザー数</span>
+                                        <span class="action-map-stat-value">72<span class="unit">名</span><span class="rate">(77%)</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均学習時間</span>
+                                        <span class="action-map-stat-value">41<span class="unit">分/日</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均アクション完了数</span>
+                                        <span class="action-map-stat-value">4.0<span class="unit">個/日</span></span>
+                                    </div>
+                                </div>
+                                <button class="continue-btn">編集する</button>
+                            </div>
+                        </div>
+                        <div class="action-map-card">
+                            <img src="https://utagesystem.s3.ap-northeast-1.amazonaws.com/GYbKT7Y9d0eR/site/uTzZ3LHOahMm/neO1LGJSprsMrrW9fkTjEBvBN30sPmYXzRddEu6f.jpg" alt="SNSマーケティング基礎" class="action-map-image">
+                            <div class="action-map-info">
+                                <h3>SNSマーケティング基礎</h3>
+                                <div class="action-map-stats">
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">総受講者数</span>
+                                        <span class="action-map-stat-value">156<span class="unit">名</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">アクティブユーザー数</span>
+                                        <span class="action-map-stat-value">128<span class="unit">名</span><span class="rate">(82%)</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均学習時間</span>
+                                        <span class="action-map-stat-value">45<span class="unit">分/日</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均アクション完了数</span>
+                                        <span class="action-map-stat-value">4.2<span class="unit">個/日</span></span>
+                                    </div>
+                                </div>
+                                <button class="continue-btn">編集する</button>
+                            </div>
+                        </div>
+                        <div class="action-map-card">
+                            <img src="https://utagesystem.s3.ap-northeast-1.amazonaws.com/GYbKT7Y9d0eR/site/uTzZ3LHOahMm/Pyc3vWf1Ig0wweGKF3BBe7kSK2gfWHK8AweiqSRB.jpg" alt="Instagram広告実践" class="action-map-image">
+                            <div class="action-map-info">
+                                <h3>Instagram広告実践</h3>
+                                <div class="action-map-stats">
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">総受講者数</span>
+                                        <span class="action-map-stat-value">98<span class="unit">名</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">アクティブユーザー数</span>
+                                        <span class="action-map-stat-value">85<span class="unit">名</span><span class="rate">(87%)</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均学習時間</span>
+                                        <span class="action-map-stat-value">52<span class="unit">分/日</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均アクション完了数</span>
+                                        <span class="action-map-stat-value">3.9<span class="unit">個/日</span></span>
+                                    </div>
+                                </div>
+                                <button class="continue-btn">編集する</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-section">
+                    <h2 class="course-section-title">動画編集コース</h2>
+                    <div class="action-map-grid">
+                        <div class="action-map-card">
+                            <div class="action-map-image">
+                                <img src="https://utagesystem.s3.ap-northeast-1.amazonaws.com/GYbKT7Y9d0eR/site/6a481X2SSRhF/pLRD7to7jpTuzEF9h60Ws46qDPvQv5Cb5PQZknwv.jpg" alt="AI副業 1on1全体グルコン">
+                            </div>
+                            <div class="action-map-info">
+                                <h3>ハイクラス営業完全攻略</h3>
+                                <div class="action-map-stats">
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">総受講者数</span>
+                                        <span class="action-map-stat-value">125<span class="unit">名</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">アクティブユーザー数</span>
+                                        <span class="action-map-stat-value">98<span class="unit">名</span><span class="rate">(78%)</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均学習時間</span>
+                                        <span class="action-map-stat-value">45<span class="unit">分/日</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均アクション完了数</span>
+                                        <span class="action-map-stat-value">4.2<span class="unit">個/日</span></span>
+                                    </div>
+                                </div>
+                                <button class="continue-btn">編集する</button>
+                            </div>
+                        </div>
+                        <div class="action-map-card">
+                            <div class="action-map-image">
+                                <img src="https://utagesystem.s3.ap-northeast-1.amazonaws.com/GYbKT7Y9d0eR/site/6a481X2SSRhF/MupcLdKNz0yQzbiozAs3z2i1lps4c7hrnHgt77wf.jpg" alt="特別単価アフィリエイト">
+                            </div>
+                            <div class="action-map-info">
+                                <h3>デザジュク営業完全攻略</h3>
+                                <div class="action-map-stats">
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">総受講者数</span>
+                                        <span class="action-map-stat-value">82<span class="unit">名</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">アクティブユーザー数</span>
+                                        <span class="action-map-stat-value">65<span class="unit">名</span><span class="rate">(79%)</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均学習時間</span>
+                                        <span class="action-map-stat-value">38<span class="unit">分/日</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均アクション完了数</span>
+                                        <span class="action-map-stat-value">3.8<span class="unit">個/日</span></span>
+                                    </div>
+                                </div>
+                                <button class="continue-btn">編集する</button>
+                            </div>
+                        </div>
+                        <div class="action-map-card">
+                            <div class="action-map-image">
+                                <img src="https://utagesystem.s3.ap-northeast-1.amazonaws.com/GYbKT7Y9d0eR/site/6a481X2SSRhF/pLRD7to7jpTuzEF9h60Ws46qDPvQv5Cb5PQZknwv.jpg" alt="AI副業 1on1全体グルコン">
+                            </div>
+                            <div class="action-map-info">
+                                <h3>CW営業完全攻略</h3>
+                                <div class="action-map-stats">
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">総受講者数</span>
+                                        <span class="action-map-stat-value">94<span class="unit">名</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">アクティブユーザー数</span>
+                                        <span class="action-map-stat-value">72<span class="unit">名</span><span class="rate">(77%)</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均学習時間</span>
+                                        <span class="action-map-stat-value">41<span class="unit">分/日</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均アクション完了数</span>
+                                        <span class="action-map-stat-value">4.0<span class="unit">個/日</span></span>
+                                    </div>
+                                </div>
+                                <button class="continue-btn">編集する</button>
+                            </div>
+                        </div>
+                        <div class="action-map-card">
+                            <img src="https://utagesystem.s3.ap-northeast-1.amazonaws.com/GYbKT7Y9d0eR/site/uTzZ3LHOahMm/neO1LGJSprsMrrW9fkTjEBvBN30sPmYXzRddEu6f.jpg" alt="SNSマーケティング基礎" class="action-map-image">
+                            <div class="action-map-info">
+                                <h3>SNSマーケティング基礎</h3>
+                                <div class="action-map-stats">
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">総受講者数</span>
+                                        <span class="action-map-stat-value">156<span class="unit">名</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">アクティブユーザー数</span>
+                                        <span class="action-map-stat-value">128<span class="unit">名</span><span class="rate">(82%)</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均学習時間</span>
+                                        <span class="action-map-stat-value">45<span class="unit">分/日</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均アクション完了数</span>
+                                        <span class="action-map-stat-value">4.2<span class="unit">個/日</span></span>
+                                    </div>
+                                </div>
+                                <button class="continue-btn">編集する</button>
+                            </div>
+                        </div>
+                        <div class="action-map-card">
+                            <img src="https://utagesystem.s3.ap-northeast-1.amazonaws.com/GYbKT7Y9d0eR/site/uTzZ3LHOahMm/Pyc3vWf1Ig0wweGKF3BBe7kSK2gfWHK8AweiqSRB.jpg" alt="Instagram広告実践" class="action-map-image">
+                            <div class="action-map-info">
+                                <h3>Instagram広告実践</h3>
+                                <div class="action-map-stats">
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">総受講者数</span>
+                                        <span class="action-map-stat-value">98<span class="unit">名</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">アクティブユーザー数</span>
+                                        <span class="action-map-stat-value">85<span class="unit">名</span><span class="rate">(87%)</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均学習時間</span>
+                                        <span class="action-map-stat-value">52<span class="unit">分/日</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均アクション完了数</span>
+                                        <span class="action-map-stat-value">3.9<span class="unit">個/日</span></span>
+                                    </div>
+                                </div>
+                                <button class="continue-btn">編集する</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-section">
+                    <h2 class="course-section-title">デザインコース</h2>
+                    <div class="action-map-grid">
+                        <div class="action-map-card">
+                            <div class="action-map-image">
+                                <img src="https://utagesystem.s3.ap-northeast-1.amazonaws.com/GYbKT7Y9d0eR/site/6a481X2SSRhF/pLRD7to7jpTuzEF9h60Ws46qDPvQv5Cb5PQZknwv.jpg" alt="AI副業 1on1全体グルコン">
+                            </div>
+                            <div class="action-map-info">
+                                <h3>ハイクラス営業完全攻略</h3>
+                                <div class="action-map-stats">
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">総受講者数</span>
+                                        <span class="action-map-stat-value">125<span class="unit">名</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">アクティブユーザー数</span>
+                                        <span class="action-map-stat-value">98<span class="unit">名</span><span class="rate">(78%)</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均学習時間</span>
+                                        <span class="action-map-stat-value">45<span class="unit">分/日</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均アクション完了数</span>
+                                        <span class="action-map-stat-value">4.2<span class="unit">個/日</span></span>
+                                    </div>
+                                </div>
+                                <button class="continue-btn">編集する</button>
+                            </div>
+                        </div>
+                        <div class="action-map-card">
+                            <div class="action-map-image">
+                                <img src="https://utagesystem.s3.ap-northeast-1.amazonaws.com/GYbKT7Y9d0eR/site/6a481X2SSRhF/MupcLdKNz0yQzbiozAs3z2i1lps4c7hrnHgt77wf.jpg" alt="特別単価アフィリエイト">
+                            </div>
+                            <div class="action-map-info">
+                                <h3>デザジュク営業完全攻略</h3>
+                                <div class="action-map-stats">
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">総受講者数</span>
+                                        <span class="action-map-stat-value">82<span class="unit">名</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">アクティブユーザー数</span>
+                                        <span class="action-map-stat-value">65<span class="unit">名</span><span class="rate">(79%)</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均学習時間</span>
+                                        <span class="action-map-stat-value">38<span class="unit">分/日</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均アクション完了数</span>
+                                        <span class="action-map-stat-value">3.8<span class="unit">個/日</span></span>
+                                    </div>
+                                </div>
+                                <button class="continue-btn">編集する</button>
+                            </div>
+                        </div>
+                        <div class="action-map-card">
+                            <div class="action-map-image">
+                                <img src="https://utagesystem.s3.ap-northeast-1.amazonaws.com/GYbKT7Y9d0eR/site/6a481X2SSRhF/pLRD7to7jpTuzEF9h60Ws46qDPvQv5Cb5PQZknwv.jpg" alt="AI副業 1on1全体グルコン">
+                            </div>
+                            <div class="action-map-info">
+                                <h3>CW営業完全攻略</h3>
+                                <div class="action-map-stats">
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">総受講者数</span>
+                                        <span class="action-map-stat-value">94<span class="unit">名</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">アクティブユーザー数</span>
+                                        <span class="action-map-stat-value">72<span class="unit">名</span><span class="rate">(77%)</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均学習時間</span>
+                                        <span class="action-map-stat-value">41<span class="unit">分/日</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均アクション完了数</span>
+                                        <span class="action-map-stat-value">4.0<span class="unit">個/日</span></span>
+                                    </div>
+                                </div>
+                                <button class="continue-btn">編集する</button>
+                            </div>
+                        </div>
+                        <div class="action-map-card">
+                            <img src="https://utagesystem.s3.ap-northeast-1.amazonaws.com/GYbKT7Y9d0eR/site/uTzZ3LHOahMm/neO1LGJSprsMrrW9fkTjEBvBN30sPmYXzRddEu6f.jpg" alt="SNSマーケティング基礎" class="action-map-image">
+                            <div class="action-map-info">
+                                <h3>SNSマーケティング基礎</h3>
+                                <div class="action-map-stats">
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">総受講者数</span>
+                                        <span class="action-map-stat-value">156<span class="unit">名</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">アクティブユーザー数</span>
+                                        <span class="action-map-stat-value">128<span class="unit">名</span><span class="rate">(82%)</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均学習時間</span>
+                                        <span class="action-map-stat-value">45<span class="unit">分/日</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均アクション完了数</span>
+                                        <span class="action-map-stat-value">4.2<span class="unit">個/日</span></span>
+                                    </div>
+                                </div>
+                                <button class="continue-btn">編集する</button>
+                            </div>
+                        </div>
+                        <div class="action-map-card">
+                            <img src="https://utagesystem.s3.ap-northeast-1.amazonaws.com/GYbKT7Y9d0eR/site/uTzZ3LHOahMm/Pyc3vWf1Ig0wweGKF3BBe7kSK2gfWHK8AweiqSRB.jpg" alt="Instagram広告実践" class="action-map-image">
+                            <div class="action-map-info">
+                                <h3>Instagram広告実践</h3>
+                                <div class="action-map-stats">
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">総受講者数</span>
+                                        <span class="action-map-stat-value">98<span class="unit">名</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">アクティブユーザー数</span>
+                                        <span class="action-map-stat-value">85<span class="unit">名</span><span class="rate">(87%)</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均学習時間</span>
+                                        <span class="action-map-stat-value">52<span class="unit">分/日</span></span>
+                                    </div>
+                                    <div class="action-map-stat-item">
+                                        <span class="action-map-stat-label">平均アクション完了数</span>
+                                        <span class="action-map-stat-value">3.9<span class="unit">個/日</span></span>
+                                    </div>
+                                </div>
+                                <button class="continue-btn">編集する</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- アナリティクスページコンテンツ -->
+            <div id="analyticsPage" style="display: none;">
+                <div class="analytics-page">
+                    <div class="analytics-overview">
+                        <div class="analytics-header">
+                            <div class="analytics-header-content">
+                                <h2>📈 アナリティクス概要</h2>
+                                <div class="period-selector">
+                                    <button data-period="daily" class="active">日次</button>
+                                    <button data-period="weekly">週次</button>
+                                    <button data-period="monthly">月次</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="analytics-grid">
+                            <div class="analytics-card">
+                                <div class="analytics-content">
+                                    <div class="analytics-title">総受講者数</div>
+                                    <div class="analytics-value">
+                                        <span class="main-value">425</span>
+                                        <span class="unit">名</span>
+                                    </div>
+                                    <div class="analytics-trend positive">
+                                        <span class="trend-icon">↑</span>
+                                        <span class="trend-value">420名</span>
+                                        <span class="trend-period">前日比</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="analytics-card">
+                                <div class="analytics-content">
+                                    <div class="analytics-title">アクティブユーザー数</div>
+                                    <div class="analytics-value">
+                                        <span class="main-value">324</span>
+                                        <span class="sub-value">(76<span class="unit">%</span>)</span>
+                                    </div>
+                                    <div class="analytics-trend positive">
+                                        <span class="trend-icon">↑</span>
+                                        <span class="trend-value">12%</span>
+                                        <span class="trend-period">前日比</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="analytics-card">
+                                <div class="analytics-content">
+                                    <div class="analytics-title">平均学習時間</div>
+                                    <div class="analytics-value">
+                                        <span class="main-value">42</span>
+                                        <span class="unit">分/日</span>
+                                    </div>
+                                    <div class="analytics-trend positive">
+                                        <span class="trend-icon">↑</span>
+                                        <span class="trend-value">8%</span>
+                                        <span class="trend-period">前日比</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="analytics-card">
+                                <div class="analytics-content">
+                                    <div class="analytics-title">平均アクション完了数</div>
+                                    <div class="analytics-value">
+                                        <span class="main-value">3.8</span>
+                                        <span class="unit">個/日</span>
+                                    </div>
+                                    <div class="analytics-trend negative">
+                                        <span class="trend-icon">↓</span>
+                                        <span class="trend-value">3%</span>
+                                        <span class="trend-period">前日比</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- グラフセクション -->
+                    <div class="graph-section">
+                        <div class="graph-header">
+                            <div class="graph-header-content">
+                                <h2 class="graph-title">データ推移</h2>
+                                <div class="graph-controls">
+                                    <div class="period-selector">
+                                        <button data-period="daily" class="active">日次</button>
+                                        <button data-period="weekly">週次</button>
+                                        <button data-period="monthly">月次</button>
+                                    </div>
+                                    <div class="metric-selector">
+                                        <button class="active" data-metric="totalUsers">総受講者数</button>
+                                        <button data-metric="activeUsers">アクティブユーザー数</button>
+                                        <button data-metric="studyTime">平均学習時間</button>
+                                        <button data-metric="actionCount">平均アクション完了数</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="graph-container">
+                            <canvas id="analyticsChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="growth-metrics">
+                        <div class="section-header">
+                            <h2>🌱 受講生の成長指標</h2>
+                        </div>
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <h3>スキル習得率</h3>
+                                <div class="skill-progress">
+                                    <div class="skill-bar" style="width: 75%">75%</div>
+                                </div>
+                                <div class="skill-details">
+                                    <span>完了スキル: 15/20</span>
+                                    <span>目標達成率: 85%</span>
+                                </div>
+                            </div>
+                            <div class="metric-card">
+                                <h3>学習継続率</h3>
+                                <div class="retention-chart">
+                                    <!-- 継続率のグラフ -->
+                                </div>
+                            </div>
+                            <div class="metric-card">
+                                <h3>モチベーション指数</h3>
+                                <div class="motivation-score">
+                                    <span class="score">8.5</span>
+                                    <span class="max">/10</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="action-analytics">
+                        <div class="section-header">
+                            <h2>🎯 アクションの実行状況</h2>
+                        </div>
+                        <div class="action-status-grid">
+                            <div class="status-card success">
+                                <div class="status-header">
+                                    <h3>成功率の高いアクション</h3>
+                                    <span class="success-rate">92%</span>
+                                </div>
+                                <ul class="action-list">
+                                    <li>
+                                        <span class="action-name">商品提案ロールプレイ</span>
+                                        <span class="completion-rate">95%</span>
+                                    </li>
+                                    <!-- 他のアクション -->
+                                </ul>
+                            </div>
+                            <div class="status-card warning">
+                                <div class="status-header">
+                                    <h3>つまずきやすいアクション</h3>
+                                    <span class="warning-count">3件</span>
+                                </div>
+                                <ul class="action-list">
+                                    <li>
+                                        <span class="action-name">クロージングトーク</span>
+                                        <span class="error-rate">45%</span>
+                                        <button class="support-btn">サポート</button>
+                                    </li>
+                                    <!-- 他のアクション -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="engagement-metrics">
+                        <div class="section-header">
+                            <h2>💪 受講生のエンゲージメント</h2>
+                        </div>
+                        <div class="engagement-grid">
+                            <div class="engagement-card">
+                                <h3>学習時間帯分布</h3>
+                                <div class="time-distribution-chart">
+                                    <!-- 時間帯別の学習分布グラフ -->
+                                </div>
+                            </div>
+                            <div class="engagement-card">
+                                <h3>コメント・質問活性度</h3>
+                                <div class="interaction-stats">
+                                    <div class="stat-item">
+                                        <span class="label">質問数/週</span>
+                                        <span class="value">12.5</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="label">コメント数/週</span>
+                                        <span class="value">28.3</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- モーダル -->
+    <div class="modal" id="tutorialModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3>チュートリアル動画</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-content">
+                <div class="video-container">
+                    <iframe src="https://www.loom.com/embed/dddcaffa6fee4fca9a3fc35eeda867aa" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div class="modal-actions">
+                    <button class="complete-tutorial-btn">チュートリアルを完了する</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
