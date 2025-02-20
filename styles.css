@@ -1207,4 +1207,214 @@ header {
     display: flex;
     align-items: center;
     gap: 1rem;
+}
+
+/* エンゲージメント指標のスタイル */
+.engagement-metrics {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    box-shadow: var(--card-shadow);
+}
+
+.engagement-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.engagement-card {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.engagement-card h3 {
+    font-size: 1rem;
+    color: var(--text-color);
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* 学習時間帯分布 */
+.time-distribution {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.time-stats {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    background: white;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.peak-hours,
+.avg-study-time {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.peak-hours .label,
+.avg-study-time .label {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.peak-hours .value,
+.avg-study-time .value {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.heatmap {
+    position: relative;
+}
+
+.time-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    color: #666;
+    font-size: 0.8rem;
+}
+
+.heatmap-grid {
+    display: grid;
+    grid-template-columns: repeat(24, 1fr);
+    gap: 2px;
+    height: 48px;
+    margin: 0.5rem 0;
+    background: #f8f9fa;
+    padding: 4px;
+    border-radius: 6px;
+}
+
+.heatmap-cell {
+    background: var(--cell-color);
+    border-radius: 2px;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.heatmap-cell:hover {
+    transform: scale(1.2);
+    z-index: 1;
+}
+
+.heatmap-legend {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.heatmap-legend .gradient {
+    flex: 1;
+    height: 6px;
+    border-radius: 3px;
+    background: linear-gradient(to right, 
+        rgba(26, 35, 126, 0.1),
+        rgba(26, 35, 126, 1)
+    );
+}
+
+/* コメント・質問活性度 */
+.interaction-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.metrics-main {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.metric-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background: white;
+    border-radius: 6px;
+    padding: 1rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.metric-item {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding-bottom: 0.75rem;
+    margin-bottom: 0.75rem;
+    background: white;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.metric-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.metric-item .label {
+    font-size: 0.9rem;
+    color: #666;
+    flex: 1;
+}
+
+.metric-item .value {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.metric-item .trend {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-left: auto;
+    color: #4caf50;
+    background: rgba(76, 175, 80, 0.1);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+}
+
+.metric-details {
+    display: flex;
+    justify-content: space-around;
+    padding: 0.75rem 0 0;
+    margin-top: 0.25rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.detail-item .label {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.detail-item .value {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-color);
 } 
