@@ -184,9 +184,13 @@ header {
 
 .content {
     flex: 1;
-    padding: 2.5rem;
+    padding: 2rem;
     overflow-y: auto;
     margin-left: var(--sidebar-width);
+}
+
+.faq-content {
+    flex: 1;
 }
 
 .content::-webkit-scrollbar {
@@ -1417,4 +1421,215 @@ header {
     font-size: 1.1rem;
     font-weight: 500;
     color: var(--text-color);
+}
+
+/* よくある質問分析 */
+.faq-analytics {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    box-shadow: var(--card-shadow);
+    display: block;
+    max-height: 600px;
+}
+
+.faq-grid {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 1.5rem;
+}
+
+.faq-analytics h3{
+    font-size: 1rem;
+}
+
+/* ランキングカード */
+.faq-ranking-card {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1.5rem;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+}
+
+.summary {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.summary-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.summary-item .label {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.summary-item .value {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.faq-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.rank {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    opacity: 0.5;
+}
+
+.title {
+    font-size: 0.95rem;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.trend {
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.trend.rising {
+    background: rgba(244, 67, 54, 0.1);
+    color: #d32f2f;
+}
+
+.trend.falling {
+    background: rgba(76, 175, 80, 0.1);
+    color: #2e7d32;
+}
+
+/* 改善アドバイスカード */
+.improvement-card {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1.5rem;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.advice-list {
+    margin-top: 1rem;
+}
+
+.advice-item {
+    background: white;
+    border-radius: 6px;
+    padding: 1rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1rem;
+}
+
+.advice-item:last-child {
+    margin-bottom: 0;
+}
+
+.issue {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.solution h4 {
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.solution p {
+    font-size: 0.95rem;
+    color: var(--text-color);
+    margin-bottom: 0.75rem;
+}
+
+.effect {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+}
+
+.effect .label {
+    color: #666;
+}
+
+.effect .value {
+    color: #2e7d32;
+    font-weight: 500;
+}
+
+#homePage {
+    display: block;
+}
+
+.faq-ranking-card::-webkit-scrollbar {
+    width: 6px;
+}
+
+.faq-ranking-card::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.faq-ranking-card::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 3px;
+}
+
+.faq-ranking-card::-webkit-scrollbar-thumb:hover {
+    background: #999;
+}
+
+.improvement-card::-webkit-scrollbar {
+    width: 6px;
+}
+
+.improvement-card::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.improvement-card::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 3px;
+}
+
+.improvement-card::-webkit-scrollbar-thumb:hover {
+    background: #999;
 } 
