@@ -156,6 +156,20 @@ function showPage(pageId) {
 
 // DOMの読み込み完了時の処理
 document.addEventListener('DOMContentLoaded', function() {
+    // アナリティクス概要の期間選択
+    document.querySelectorAll('.analytics-overview .period-selector button').forEach(button => {
+        button.addEventListener('click', () => {
+            // アクティブ状態の更新
+            const overview = button.closest('.analytics-overview');
+            overview.querySelector('.period-selector button.active').classList.remove('active');
+            button.classList.add('active');
+
+            // 期間に応じてデータを更新
+            const period = button.dataset.period;
+            updateOverviewData(period);
+        });
+    });
+
     // サイドバーのリンクにイベントリスナーを追加
     document.querySelectorAll('.sidebar a').forEach(link => {
         link.addEventListener('click', (e) => {
@@ -262,13 +276,13 @@ function initAnalyticsChart() {
     });
 
     // 期間選択ボタンのイベントリスナー
-    document.querySelectorAll('#analyticsPage .period-selector button').forEach(button => {
+    document.querySelectorAll('.graph-section .period-selector button').forEach(button => {
         button.addEventListener('click', () => {
             const period = button.dataset.period;
             const currentMetric = document.querySelector('.metric-selector button.active').dataset.metric;
             
             // アクティブ状態の更新
-            document.querySelector('.period-selector button.active').classList.remove('active');
+            button.closest('.graph-section').querySelector('.period-selector button.active').classList.remove('active');
             button.classList.add('active');
             
             // データセットを更新
@@ -413,4 +427,88 @@ function formatDate(date, period) {
         default:
             return '';
     }
+}
+
+// アナリティクス概要のデータ更新関数
+function updateOverviewData(period) {
+    // 各指標のデータを更新
+    const data = generateOverviewData(period);
+    
+    // 前日比の計算用に前日のデータも生成
+    const prevData = generateOverviewData(period);
+    
+    // 総受講者数の更新
+    const totalUsersCard = document.querySelector('.analytics-overview .analytics-card:nth-child(1)');
+    totalUsersCard.querySelector('.main-value').textContent = data.totalUsers;
+    updateTrendValue(totalUsersCard, data.totalUsers, prevData.totalUsers);
+    
+    // アクティブユーザー数の更新
+    const activeUsersCard = document.querySelector('.analytics-overview .analytics-card:nth-child(2)');
+    activeUsersCard.querySelector('.main-value').textContent = data.activeUsers;
+    activeUsersCard.querySelector('.sub-value').textContent = 
+        `(${Math.round(data.activeUsers / data.totalUsers * 100)}%)`;
+    updateTrendValue(activeUsersCard, data.activeUsers, prevData.activeUsers);
+    
+    // 平均学習時間の更新
+    const studyTimeCard = document.querySelector('.analytics-overview .analytics-card:nth-child(3)');
+    studyTimeCard.querySelector('.main-value').textContent = data.studyTime;
+    updateTrendValue(studyTimeCard, data.studyTime, prevData.studyTime);
+    
+    // 平均アクション完了数の更新
+    const actionCountCard = document.querySelector('.analytics-overview .analytics-card:nth-child(4)');
+    actionCountCard.querySelector('.main-value').textContent = data.actionCount;
+    updateTrendValue(actionCountCard, data.actionCount, prevData.actionCount);
+}
+
+// トレンド値の更新関数
+function updateTrendValue(card, currentValue, prevValue) {
+    const trendElement = card.querySelector('.analytics-trend');
+    const trendIcon = trendElement.querySelector('.trend-icon');
+    const trendValue = trendElement.querySelector('.trend-value');
+    
+    const change = ((currentValue - prevValue) / prevValue * 100).toFixed(1);
+    const isPositive = change >= 0;
+    
+    trendElement.className = `analytics-trend ${isPositive ? 'positive' : 'negative'}`;
+    trendIcon.textContent = isPositive ? '↑' : '↓';
+    trendValue.textContent = `${Math.abs(change)}%`;
+}
+
+// アナリティクス概要のデータ生成関数
+function generateOverviewData(period) {
+    // 期間に応じてベース値を調整
+    const baseMultiplier = period === 'daily' ? 1 : 
+                          period === 'weekly' ? 7 : 30;
+    
+    // 期間に応じた基準値の設定
+    const baseValues = {
+        daily: {
+            totalUsers: 425,
+            activeUsers: 324,
+            studyTime: 42,
+            actionCount: 3.8
+        },
+        weekly: {
+            totalUsers: 410,
+            activeUsers: 298,
+            studyTime: 280,
+            actionCount: 24.5
+        },
+        monthly: {
+            totalUsers: 380,
+            activeUsers: 275,
+            studyTime: 1200,
+            actionCount: 95.0
+        }
+    };
+    
+    const base = baseValues[period];
+    const variance = 0.1; // 10%の変動
+    
+    return {
+        totalUsers: Math.round(base.totalUsers * (1 + Math.random() * variance)),
+        activeUsers: Math.round(base.activeUsers * (1 + Math.random() * variance)),
+        studyTime: Math.round(base.studyTime * (1 + Math.random() * variance)),
+        actionCount: Math.round(base.actionCount * (1 + Math.random() * variance) * 10) / 10
+    };
 } 
