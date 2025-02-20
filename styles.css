@@ -1049,28 +1049,67 @@ header {
 .status-card {
     background: #f8f9fa;
     border-radius: 8px;
-    padding: 1.25rem;
+    padding: 1.5rem;
     flex: 1;
-}
-
-.status-card.success {
-    border-left: 4px solid #4caf50;
-}
-
-.status-card.warning {
-    border-left: 4px solid #ff9800;
 }
 
 .status-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .status-header h3 {
     font-size: 1rem;
     color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.status-card.success .status-header h3::before {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    background: #4caf50;
+    border-radius: 50%;
+}
+
+.status-card.warning .status-header h3::before {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    background: #ff9800;
+    border-radius: 50%;
+}
+
+.action-stats {
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.progress-bar {
+    width: 120px;
+    height: 6px;
+    background: #e9ecef;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background: #4caf50;
+    transition: width 0.3s ease;
+}
+
+.progress.warning {
+    background: #ff9800;
 }
 
 .success-rate {
@@ -1118,14 +1157,54 @@ header {
     padding: 0.25rem 0.75rem;
     border: 1px solid #ff9800;
     border-radius: 4px;
-    background: transparent;
-    color: #ff9800;
+    background: rgba(255, 152, 0, 0.1);
+    color: #e65100;
     font-size: 0.8rem;
     cursor: pointer;
     transition: all var(--transition-speed) ease;
 }
 
 .support-btn:hover {
-    background: #ff9800;
-    color: white;
+    background: rgba(255, 152, 0, 0.2);
+}
+
+.stats-summary {
+    display: flex;
+    justify-content: space-around;
+    gap: 2rem;
+}
+
+.stats-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.stats-item .label {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.stats-item .value {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.action-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.action-meta {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.action-status {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 } 
