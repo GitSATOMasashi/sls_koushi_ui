@@ -1139,20 +1139,73 @@
                         <div class="engagement-grid">
                             <div class="engagement-card">
                                 <h3>学習時間帯分布</h3>
-                                <div class="time-distribution-chart">
-                                    <!-- 時間帯別の学習分布グラフ -->
+                                <div class="time-distribution">
+                                    <div class="time-stats">
+                                        <div class="peak-hours">
+                                            <span class="label">ピーク時間帯</span>
+                                            <span class="value">20:00 - 22:00</span>
+                                        </div>
+                                        <div class="avg-study-time">
+                                            <span class="label">平均学習時間</span>
+                                            <span class="value">1.8 時間/日</span>
+                                        </div>
+                                    </div>
+                                    <div class="heatmap">
+                                        <div class="time-labels">
+                                            <span>6時</span>
+                                            <span>12時</span>
+                                            <span>18時</span>
+                                            <span>24時</span>
+                                        </div>
+                                        <div class="heatmap-grid">
+                                            <!-- 時間帯別のヒートマップセルはJSで動的に生成 -->
+                                        </div>
+                                        <div class="heatmap-legend">
+                                            <span>少</span>
+                                            <div class="gradient"></div>
+                                            <span>多</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="engagement-card">
                                 <h3>コメント・質問活性度</h3>
-                                <div class="interaction-stats">
-                                    <div class="stat-item">
-                                        <span class="label">質問数/週</span>
-                                        <span class="value">12.5</span>
-                                    </div>
-                                    <div class="stat-item">
-                                        <span class="label">コメント数/週</span>
-                                        <span class="value">28.3</span>
+                                <div class="interaction-metrics">
+                                    <div class="metrics-main">
+                                        <div class="metric-group">
+                                            <div class="metric-item primary">
+                                                <span class="label">質問数/週</span>
+                                                <span class="value">12.5</span>
+                                                <span class="trend positive">+2.3</span>
+                                            </div>
+                                            <div class="metric-details">
+                                                <div class="detail-item">
+                                                    <span class="label">回答率</span>
+                                                    <span class="value">95%</span>
+                                                </div>
+                                                <div class="detail-item">
+                                                    <span class="label">平均回答時間</span>
+                                                    <span class="value">2.5時間</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="metric-group">
+                                            <div class="metric-item secondary">
+                                                <span class="label">コメント数/週</span>
+                                                <span class="value">28.3</span>
+                                                <span class="trend positive">+5.7</span>
+                                            </div>
+                                            <div class="metric-details">
+                                                <div class="detail-item">
+                                                    <span class="label">返信率</span>
+                                                    <span class="value">78%</span>
+                                                </div>
+                                                <div class="detail-item">
+                                                    <span class="label">平均文字数</span>
+                                                    <span class="value">42文字</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

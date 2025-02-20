@@ -572,4 +572,26 @@ function initRetentionChart() {
             }
         }
     });
-} 
+}
+
+function initHeatmap() {
+    const heatmapGrid = document.querySelector('.heatmap-grid');
+    const hours = Array.from({length: 24}, (_, i) => i);
+    const maxValue = 100;
+    
+    hours.forEach(hour => {
+        const cell = document.createElement('div');
+        cell.className = 'heatmap-cell';
+        // 仮のデータ生成（実際はAPIからデータを取得）
+        const value = Math.random() * maxValue;
+        const intensity = value / maxValue;
+        cell.style.setProperty('--cell-color', `rgba(26, 35, 126, ${intensity})`);
+        cell.title = `${hour}時: ${Math.round(value)}%`;
+        heatmapGrid.appendChild(cell);
+    });
+}
+
+// ページ表示時にヒートマップを初期化
+document.addEventListener('DOMContentLoaded', () => {
+    initHeatmap();
+}); 
