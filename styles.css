@@ -1197,8 +1197,8 @@ header {
     padding: 0.25rem 0.75rem;
     border-radius: 4px;
     border: 1px solid #ff9800;
-    background: white;
-    color: #ff9800;
+    background: rgba(255, 152, 0, 0.1);
+    color: #e65100;
     cursor: pointer;
     font-size: 0.8rem;
     transition: all 0.2s ease;
@@ -1208,14 +1208,11 @@ header {
 }
 
 .status-card.warning .apply-btn {
-    padding: 8px 0px;
-    width: 6rem;
-    font-size: 14px;
+    padding: 5px 0px;
 }
 
 .apply-btn:hover {
-    background: #ff9800;
-    color: white;
+    background: rgba(255, 152, 0, 0.2);
 }
 
 .improvement-suggestion {
