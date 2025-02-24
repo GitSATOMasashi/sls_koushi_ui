@@ -1057,6 +1057,29 @@ header {
     flex: 1;
 }
 
+.status-card.warning {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.status-card.warning::-webkit-scrollbar {
+    width: 6px;
+}
+
+.status-card.warning::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.status-card.warning::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 3px;
+}
+
+.status-card.warning::-webkit-scrollbar-thumb:hover {
+    background: #999;
+}
+
 .status-header {
     display: flex;
     justify-content: space-between;
@@ -1092,14 +1115,16 @@ header {
 
 .action-stats {
     margin: 1.5rem 0;
+    margin-left: 10px;
     padding: 1.5rem;
     background: white;
     border-radius: 6px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    display: none;
 }
 
 .progress-bar {
-    width: 120px;
+    width: 7rem;
     height: 6px;
     background: #e9ecef;
     border-radius: 3px;
@@ -1132,85 +1157,119 @@ header {
 
 .action-list li {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid rgba(0,0,0,0.1);
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: white;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
-.action-list li:last-child {
-    border-bottom: none;
-}
-
-.action-name {
-    font-size: 0.9rem;
-    color: var(--text-color);
-}
-
-.completion-rate {
-    color: #4caf50;
-    font-weight: 500;
-}
-
-.error-rate {
-    color: #f44336;
-    font-weight: 500;
-}
-
-.support-btn {
-    padding: 0.25rem 0.75rem;
-    border: 1px solid #ff9800;
-    border-radius: 4px;
-    background: rgba(255, 152, 0, 0.1);
-    color: #e65100;
-    font-size: 0.8rem;
-    cursor: pointer;
-    transition: all var(--transition-speed) ease;
-}
-
-.support-btn:hover {
-    background: rgba(255, 152, 0, 0.2);
-}
-
-.stats-summary {
-    display: flex;
-    justify-content: space-around;
-    gap: 2rem;
-}
-
-.stats-item {
+.action-header-left {
+    flex: 1;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+}
+
+.action-header-right {
+    display: flex;
+    justify-content: flex-end;
     align-items: center;
-    gap: 0.25rem;
-}
-
-.stats-item .label {
-    font-size: 0.8rem;
-    color: #666;
-}
-
-.stats-item .value {
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: var(--text-color);
+    align-self: center;
 }
 
 .action-info {
     display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-}
-
-.action-meta {
-    font-size: 0.8rem;
-    color: #666;
+    align-items: center;
+    margin-bottom: 0.25rem;
 }
 
 .action-status {
     display: flex;
     align-items: center;
     gap: 1rem;
+    margin-left: 0.3rem;
+}
+
+.apply-btn {
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    border: 1px solid #ff9800;
+    background: white;
+    color: #ff9800;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    min-width: 80px;
+    text-align: center;
+}
+
+.status-card.warning .apply-btn {
+    padding: 8px 0px;
+    width: 6rem;
+    font-size: 14px;
+}
+
+.apply-btn:hover {
+    background: #ff9800;
+    color: white;
+}
+
+.improvement-suggestion {
+    width: 100%;
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.5;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.stats-summary {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    padding: 0 2rem;
+}
+
+.stats-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    min-width: 200px;
+}
+
+.stats-item .label {
+    font-size: 0.9rem;
+    color: #666;
+    font-weight: 500;
+}
+
+.stats-item .value {
+    font-size: 2rem;
+    line-height: 1;
+    font-weight: 500;
+    color: var(--text-color);
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+}
+
+.stats-item .unit {
+    font-size: 1.2rem;
+    font-weight: normal;
+    color: #666;
+}
+
+.stats-item .description {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: #777;
+    margin-top: 0.5rem;
 }
 
 /* エンゲージメント指標のスタイル */
@@ -1632,4 +1691,11 @@ header {
 
 .improvement-card::-webkit-scrollbar-thumb:hover {
     background: #999;
+}
+
+.action-status .label {
+    font-size: 0.8rem;
+    color: #666;
+    margin-right: 0.5rem;
+    white-space: nowrap;
 } 
