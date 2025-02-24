@@ -1057,7 +1057,7 @@ header {
     flex: 1;
 }
 
-.status-card.warning {
+.status-card.warning ,.status-card.success {
     max-height: 500px;
     overflow-y: auto;
 }
@@ -1141,7 +1141,7 @@ header {
     background: #ff9800;
 }
 
-.success-rate {
+.success-count {
     color: #4caf50;
     font-weight: 500;
 }
@@ -1205,6 +1205,10 @@ header {
     white-space: nowrap;
     min-width: 80px;
     text-align: center;
+}
+
+.status-card.success .apply-btn {
+    display: none;
 }
 
 .status-card.warning .apply-btn {
