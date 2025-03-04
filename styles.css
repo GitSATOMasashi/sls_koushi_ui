@@ -659,7 +659,9 @@ header {
     display: flex;
     align-items: center;
     gap: 0.25rem;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin-top: 0.25rem;
 }
 
 .analytics-trend.positive {
@@ -668,6 +670,19 @@ header {
 
 .analytics-trend.negative {
     color: #d32f2f;
+}
+
+.analytics-trend.neutral {
+    color: #757575; /* グレー色 */
+}
+
+.trend-icon {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.trend-text {
+    flex: 1;
 }
 
 .trend-rate {
@@ -885,6 +900,7 @@ header {
     padding: 1.5rem;
     margin-top: 2rem;
     box-shadow: var(--card-shadow);
+    display: none;
 }
 
 .section-header {
@@ -1064,7 +1080,7 @@ header {
 }
 
 .question-list{
-    max-height:300px;
+    max-height:330px;
     overflow-y: auto;
 }
 
@@ -1286,18 +1302,23 @@ header {
     padding: 1.5rem;
     margin-top: 2rem;
     box-shadow: var(--card-shadow);
+    overflow: hidden; /* はみ出した内容を隠す */
+    width: 100%; /* 幅を100%に設定 */
 }
 
 .engagement-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 35% 65%;
     gap: 1.5rem;
+    width: 100%; /* 幅を100%に設定 */
+    max-width: 100%; /* 最大幅を100%に制限 */
+    padding-right: 1.5rem;
 }
 
 .engagement-card {
     background: #f8f9fa;
     border-radius: 8px;
-    padding: 1.5rem;
+    padding: 1.25rem;
     display: flex;
     flex-direction: column;
 }
@@ -1364,23 +1385,21 @@ header {
     display: grid;
     grid-template-columns: repeat(24, 1fr);
     gap: 2px;
-    height: 48px;
+    height: 60px;  /* 高さを固定 */
     margin: 0.5rem 0;
-    background: #f8f9fa;
-    padding: 4px;
-    border-radius: 6px;
 }
 
 .heatmap-cell {
-    background: var(--cell-color);
+    background-color: var(--cell-color, rgba(26, 35, 126, 0.1));
     border-radius: 2px;
-    transition: all 0.2s ease;
-    position: relative;
+    height: 100%;  /* 親要素の高さいっぱいに */
+    transition: transform 0.2s ease;
+    cursor: pointer;
 }
 
 .heatmap-cell:hover {
-    transform: scale(1.2);
-    z-index: 1;
+    transform: scaleY(1.1);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
 .heatmap-legend {
@@ -1497,6 +1516,7 @@ header {
     padding: 1.5rem;
     margin-top: 2rem;
     box-shadow: var(--card-shadow);
+    height: 500px;
 }
 
 .faq-analytics .question-header-left {
@@ -1843,6 +1863,7 @@ header {
     padding: 0 3rem;
     border-radius: 8px;
     margin-bottom: 1.5rem;
+    display: none;
 }
 
 .faq-analytics .metrics-grid {
@@ -1948,4 +1969,128 @@ header {
     color: #2e7d32;    ;  /* 緑色のアクセント */
     font-weight: 500;
     font-size: 1.1rem;
+}
+
+/* 学習継続性のスタイル */
+.continuity-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    height: 100%;
+}
+
+.continuity-chart {
+    flex: 1;
+    min-height: 180px;
+    position: relative;
+}
+
+.continuity-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.metric-row {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.continuity-metric {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.25rem;
+    min-height: 90px;
+    max-width: 25%; /* 最大幅を25%に制限（4つで100%） */
+    box-sizing: border-box; /* パディングを幅に含める */
+}
+
+/* 各メトリックの幅を調整して4つ並べても見やすくする */
+.continuity-metric .label {
+    font-size: 0.75rem;
+    color: #666;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.continuity-metric .value {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-color);
+    text-align: center;
+}
+
+.continuity-metric .comparison {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.25rem;
+    font-size: 0.7rem;
+    line-height: 1.2;
+    max-width: 100%;
+}
+
+.continuity-metric .comparison.positive {
+    color: #2e7d32;
+}
+
+.continuity-metric .comparison.negative {
+    color: #d32f2f;
+}
+
+.continuity-metric .trend-icon {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.continuity-metric .trend-text {
+    word-break: break-word;
+    hyphens: auto;
+    max-width: 100%;
+    display: inline-block;
+    font-size: 0.65rem; /* さらに小さく */
+}
+
+.continuity-metric .trend-text::after {
+    content: "\A";
+    white-space: pre;
+}
+
+/* faq-analyticsのcard-headerを修正 */
+.faq-analytics .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.faq-analytics .card-header h3 {
+    font-size: 1rem;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* ドットインジケーターを追加 */
+.faq-analytics .card-header h3::before {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    background: #ff9800;
+    border-radius: 50%;
+}
+
+/* faq-analyticsのcard-headerを修正 - カウント表示を追加 */
+.faq-analytics .card-header .count {
+    color: #ff9800;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }

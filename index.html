@@ -111,8 +111,7 @@
                                 </div>
                                 <div class="analytics-trend positive">
                                     <span class="trend-icon">↑</span>
-                                    <span class="trend-value">420名</span>
-                                    <span class="trend-period">前日比</span>
+                                    <span class="trend-text">前日より 5名 増えています</span>
                                 </div>
                             </div>
                         </div>
@@ -125,8 +124,7 @@
                                 </div>
                                 <div class="analytics-trend positive">
                                     <span class="trend-icon">↑</span>
-                                    <span class="trend-value">12%</span>
-                                    <span class="trend-period">前日比</span>
+                                    <span class="trend-text">前日より 14名 増えています</span>
                                 </div>
                             </div>
                         </div>
@@ -139,8 +137,7 @@
                                 </div>
                                 <div class="analytics-trend positive">
                                     <span class="trend-icon">↑</span>
-                                    <span class="trend-value">8%</span>
-                                    <span class="trend-period">前日比</span>
+                                    <span class="trend-text">前日より 4分 長くなっています</span>
                                 </div>
                             </div>
                         </div>
@@ -153,8 +150,7 @@
                                 </div>
                                 <div class="analytics-trend negative">
                                     <span class="trend-icon">↓</span>
-                                    <span class="trend-value">3%</span>
-                                    <span class="trend-period">前日比</span>
+                                    <span class="trend-text">前日より 0.2個 減っています</span>
                                 </div>
                             </div>
                         </div>
@@ -882,8 +878,7 @@
                                     </div>
                                     <div class="analytics-trend positive">
                                         <span class="trend-icon">↑</span>
-                                        <span class="trend-value">420名</span>
-                                        <span class="trend-period">前日比</span>
+                                        <span class="trend-text">前日より 5名 増えています</span>
                                     </div>
                                 </div>
                             </div>
@@ -896,8 +891,7 @@
                                     </div>
                                     <div class="analytics-trend positive">
                                         <span class="trend-icon">↑</span>
-                                        <span class="trend-value">12%</span>
-                                        <span class="trend-period">前日比</span>
+                                        <span class="trend-text">前日より 14名 増えています</span>
                                     </div>
                                 </div>
                             </div>
@@ -910,8 +904,7 @@
                                     </div>
                                     <div class="analytics-trend positive">
                                         <span class="trend-icon">↑</span>
-                                        <span class="trend-value">8%</span>
-                                        <span class="trend-period">前日比</span>
+                                        <span class="trend-text">前日より 4分 長くなっています</span>
                                     </div>
                                 </div>
                             </div>
@@ -924,8 +917,7 @@
                                     </div>
                                     <div class="analytics-trend negative">
                                         <span class="trend-icon">↓</span>
-                                        <span class="trend-value">3%</span>
-                                        <span class="trend-period">前日比</span>
+                                        <span class="trend-text">前日より 0.2個 減っています</span>
                                     </div>
                                 </div>
                             </div>
@@ -1527,6 +1519,7 @@
                                             <span class="value">92%</span>
                                         </div>
                                     </div>
+                                    <div class="count">12件</div>
                                 </div>
                                 <div class="question-list">
                                     <div class="question-item">
@@ -1662,8 +1655,9 @@
                             <h2>受講生のエンゲージメント</h2>
                         </div>
                         <div class="engagement-grid">
+                            <!-- 学習時間帯分布カード -->
                             <div class="engagement-card">
-                                <h3>学習時間帯分布</h3>
+                                <h3>時間帯分布</h3>
                                 <div class="time-distribution">
                                     <div class="time-stats">
                                         <div class="peak-hours">
@@ -1693,42 +1687,47 @@
                                     </div>
                                 </div>
                             </div>
+                            
+                            <!-- 学習継続性カード -->
                             <div class="engagement-card">
-                                <h3>コメント・質問活性度</h3>
-                                <div class="interaction-metrics">
-                                    <div class="metrics-main">
-                                        <div class="metric-group">
-                                            <div class="metric-item primary">
-                                                <span class="label">質問数/週</span>
-                                                <span class="value">12.5</span>
-                                                <span class="trend positive">+2.3</span>
+                                <h3>継続日数</h3>
+                                <div class="continuity-stats">
+                                    <div class="continuity-chart">
+                                        <canvas id="continuityChart" height="180"></canvas>
+                                    </div>
+                                    <div class="continuity-metrics">
+                                        <div class="metric-row">
+                                            <div class="continuity-metric">
+                                                <span class="label">平均継続日数</span>
+                                                <span class="value">5.2日</span>
+                                                <span class="comparison positive">
+                                                    <span class="trend-icon">↑</span>
+                                                    <span class="trend-text">前日より<br>0.8日 長くなっています</span>
+                                                </span>
                                             </div>
-                                            <div class="metric-details">
-                                                <div class="detail-item">
-                                                    <span class="label">回答率</span>
-                                                    <span class="value">95%</span>
-                                                </div>
-                                                <div class="detail-item">
-                                                    <span class="label">平均回答時間</span>
-                                                    <span class="value">2.5時間</span>
-                                                </div>
+                                            <div class="continuity-metric">
+                                                <span class="label">3日以上継続中</span>
+                                                <span class="value">78名 (59%)</span>
+                                                <span class="comparison positive">
+                                                    <span class="trend-icon">↑</span>
+                                                    <span class="trend-text">前日より 5名 増えています</span>
+                                                </span>
                                             </div>
-                                        </div>
-                                        <div class="metric-group">
-                                            <div class="metric-item secondary">
-                                                <span class="label">コメント数/週</span>
-                                                <span class="value">28.3</span>
-                                                <span class="trend positive">+5.7</span>
+                                            <div class="continuity-metric">
+                                                <span class="label">7日以上継続中</span>
+                                                <span class="value">42名 (32%)</span>
+                                                <span class="comparison negative">
+                                                    <span class="trend-icon">↓</span>
+                                                    <span class="trend-text">前日より 3名 減っています</span>
+                                                </span>
                                             </div>
-                                            <div class="metric-details">
-                                                <div class="detail-item">
-                                                    <span class="label">返信率</span>
-                                                    <span class="value">78%</span>
-                                                </div>
-                                                <div class="detail-item">
-                                                    <span class="label">平均文字数</span>
-                                                    <span class="value">42文字</span>
-                                                </div>
+                                            <div class="continuity-metric">
+                                                <span class="label">最長継続日数</span>
+                                                <span class="value">28日</span>
+                                                <span class="comparison positive">
+                                                    <span class="trend-icon">↑</span>
+                                                    <span class="trend-text">前日より 2日 長くなっています</span>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>

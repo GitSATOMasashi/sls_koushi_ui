@@ -471,13 +471,43 @@ function updateTrendValue(card, currentValue, prevValue) {
     const trendElement = card.querySelector('.analytics-trend');
     const trendIcon = trendElement.querySelector('.trend-icon');
     const trendValue = trendElement.querySelector('.trend-value');
+    const trendPeriod = trendElement.querySelector('.trend-period');
     
-    const change = ((currentValue - prevValue) / prevValue * 100).toFixed(1);
-    const isPositive = change >= 0;
+    const difference = currentValue - prevValue;
+    const isPositive = difference > 0;
+    const isEqual = difference === 0;
     
-    trendElement.className = `analytics-trend ${isPositive ? 'positive' : 'negative'}`;
-    trendIcon.textContent = isPositive ? '↑' : '↓';
-    trendValue.textContent = `${Math.abs(change)}%`;
+    // カードのタイトルから指標の種類を判断
+    const metricTitle = card.querySelector('.analytics-title').textContent;
+    const { unit, positiveVerb, negativeVerb } = getMetricInfo(metricTitle);
+    
+    if (isEqual) {
+        trendElement.className = 'analytics-trend neutral';
+        trendIcon.textContent = '→';
+        trendValue.textContent = '前日から変化はありません';
+    } else {
+        trendElement.className = `analytics-trend ${isPositive ? 'positive' : 'negative'}`;
+        trendIcon.textContent = isPositive ? '↑' : '↓';
+        trendValue.textContent = `前日より ${Math.abs(difference).toFixed(1).replace('.0', '')}${unit} ${isPositive ? positiveVerb : negativeVerb}`;
+    }
+    
+    trendPeriod.style.display = 'none'; // 不要な要素を非表示
+}
+
+// 指標ごとの単位と表現を取得する関数
+function getMetricInfo(metricTitle) {
+    switch(metricTitle) {
+        case '総受講者数':
+            return { unit: '名', positiveVerb: '増えています', negativeVerb: '減っています' };
+        case 'アクティブユーザー数':
+            return { unit: '名', positiveVerb: '増えています', negativeVerb: '減っています' };
+        case '平均学習時間':
+            return { unit: '分', positiveVerb: '長くなっています', negativeVerb: '短くなっています' };
+        case '平均アクション完了数':
+            return { unit: '個', positiveVerb: '増えています', negativeVerb: '減っています' };
+        default:
+            return { unit: '', positiveVerb: '増えています', negativeVerb: '減っています' };
+    }
 }
 
 // アナリティクス概要のデータ生成関数
@@ -576,22 +606,119 @@ function initRetentionChart() {
 
 function initHeatmap() {
     const heatmapGrid = document.querySelector('.heatmap-grid');
-    const hours = Array.from({length: 24}, (_, i) => i);
-    const maxValue = 100;
+    if (!heatmapGrid) return;
     
-    hours.forEach(hour => {
+    // 既存のセルをクリア
+    heatmapGrid.innerHTML = '';
+    
+    // 0時から23時までの24時間分のセルを生成
+    for (let hour = 0; hour < 24; hour++) {
         const cell = document.createElement('div');
         cell.className = 'heatmap-cell';
+        
         // 仮のデータ生成（実際はAPIからデータを取得）
-        const value = Math.random() * maxValue;
-        const intensity = value / maxValue;
-        cell.style.setProperty('--cell-color', `rgba(26, 35, 126, ${intensity})`);
+        const value = Math.random() * 100;
+        const intensity = value / 100;
+        
+        // 時間帯によって異なる強度を設定（例：夜間は高い値）
+        let adjustedIntensity = intensity;
+        if (hour >= 19 && hour <= 22) {  // 19時〜22時はピーク
+            adjustedIntensity = 0.7 + (Math.random() * 0.3);  // 0.7〜1.0
+        } else if (hour >= 9 && hour <= 17) {  // 9時〜17時は中程度
+            adjustedIntensity = 0.3 + (Math.random() * 0.4);  // 0.3〜0.7
+        } else {  // その他の時間は低め
+            adjustedIntensity = 0.1 + (Math.random() * 0.2);  // 0.1〜0.3
+        }
+        
+        cell.style.setProperty('--cell-color', `rgba(26, 35, 126, ${adjustedIntensity})`);
         cell.title = `${hour}時: ${Math.round(value)}%`;
         heatmapGrid.appendChild(cell);
-    });
+    }
 }
 
 // ページ表示時にヒートマップを初期化
 document.addEventListener('DOMContentLoaded', () => {
     initHeatmap();
+});
+
+// 学習継続性グラフの初期化
+function initContinuityChart() {
+    const ctx = document.getElementById('continuityChart').getContext('2d');
+    if (!ctx) return;
+    
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['1日', '2日', '3日', '4日', '5日', '6日', '7日', '10日', '14日', '20日', '30日'],
+            datasets: [{
+                label: '受講生の割合',
+                data: [15, 12, 10, 8, 7, 6, 5, 4, 3, 2, 1], // 各日数に対応するデータ
+                backgroundColor: [
+                    'rgba(26, 35, 126, 0.1)',
+                    'rgba(26, 35, 126, 0.15)',
+                    'rgba(26, 35, 126, 0.2)',
+                    'rgba(26, 35, 126, 0.25)',
+                    'rgba(26, 35, 126, 0.3)',
+                    'rgba(26, 35, 126, 0.35)',
+                    'rgba(26, 35, 126, 0.4)',
+                    'rgba(26, 35, 126, 0.5)',
+                    'rgba(26, 35, 126, 0.6)',
+                    'rgba(26, 35, 126, 0.8)',
+                    'rgba(26, 35, 126, 1.0)'
+                ],
+                borderColor: [
+                    'rgba(26, 35, 126, 1)',
+                    'rgba(26, 35, 126, 1)',
+                    'rgba(26, 35, 126, 1)',
+                    'rgba(26, 35, 126, 1)',
+                    'rgba(26, 35, 126, 1)',
+                    'rgba(26, 35, 126, 1)',
+                    'rgba(26, 35, 126, 1)',
+                    'rgba(26, 35, 126, 1)',
+                    'rgba(26, 35, 126, 1)',
+                    'rgba(26, 35, 126, 1)',
+                    'rgba(26, 35, 126, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return context.parsed.y + '%';
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 20, // 最大値を調整
+                    ticks: {
+                        callback: function(value) {
+                            return value + '%';
+                        }
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    }
+                }
+            }
+        }
+    });
+}
+
+// ページ表示時に継続性グラフを初期化
+document.addEventListener('DOMContentLoaded', () => {
+    initHeatmap();
+    initContinuityChart();
 }); 
