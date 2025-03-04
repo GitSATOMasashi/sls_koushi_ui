@@ -1057,8 +1057,14 @@ header {
     flex: 1;
 }
 
-.status-card.warning ,.status-card.success {
-    max-height: 500px;
+.status-card.warning ,
+.status-card.success{
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.question-list{
+    max-height:300px;
     overflow-y: auto;
 }
 
@@ -1421,12 +1427,13 @@ header {
 
 .metric-item {
     display: flex;
-    align-items: baseline;
+    flex-direction: column;
     gap: 1rem;
-    padding-bottom: 0.75rem;
-    margin-bottom: 0.75rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
     background: white;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .metric-item:last-child {
@@ -1483,41 +1490,201 @@ header {
     color: var(--text-color);
 }
 
-/* よくある質問分析 */
+/* 質問分析のスタイル */
 .faq-analytics {
     background: white;
     border-radius: 12px;
     padding: 1.5rem;
     margin-top: 2rem;
     box-shadow: var(--card-shadow);
-    display: block;
-    max-height: 600px;
 }
 
-.faq-grid {
-    display: grid;
-    grid-template-columns: 3fr 2fr;
-    gap: 1.5rem;
+.faq-analytics .question-header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
 }
 
-.faq-analytics h3{
-    font-size: 1rem;
+.faq-analytics .breadcrumb {
+    order: -1;
+    font-size: 0.8rem;
+    margin-bottom: 0.25rem;
 }
 
-/* ランキングカード */
-.faq-ranking-card {
+.faq-analytics .question-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: white;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.faq-analytics .question-date::before {
+    content: "質問日時：";
+}
+
+.question-card {
+    padding: 0.8rem 1.5rem;
     background: #f8f9fa;
     border-radius: 8px;
-    padding: 1.5rem;
-    max-height: 500px;
-    overflow-y: auto;
+    padding-top: 1.2rem;
+}
+
+.question-list {
+    list-style: none;
+}
+
+.question-item {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: white;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.question-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.question-header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.action-name {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-color);
+    margin-bottom: 0.25rem;
+}
+
+.question-header-right {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.improvement-proposal {
+    padding: 0 1.25rem;
+    background: rgba(255, 152, 0, 0.05);
+    border-radius: 4px;
+    border-left: 3px solid #ff9800;
+    margin: 1rem 0;
+    background: white;
+}
+
+.improvement-proposal h4 {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+    display: none;
+}
+
+.improvement-proposal p {
+    font-size: 15px;
+    color: var(--text-color);
+    line-height: 1.5;
+}
+
+.question-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    background: #f5f5f5;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    display: none;
+}
+
+.question-details .label {
+    display: block;
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 0.25rem;
+}
+
+.question-details p {
+    font-size: 14px;
+    color: var(--text-color);
+    line-height: 1.5;
+}
+
+.question-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 0.5rem;
+    display: none;
+}
+
+.question-date {
+    font-size: 12px;
+    color: #999;
+}
+
+.skip-btn {
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background: white;
+    color: #666;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.2s ease;
+}
+
+.skip-btn:hover {
+    background: #f5f5f5;
+}
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #666;
+    font-size: 13px;
+    margin-bottom: 0.5rem;
+}
+
+.breadcrumb-item:not(:last-child)::after {
+    content: '/';
+    margin-left: 0.5rem;
+    color: #999;
+}
+
+.improvement {
+    width: 100%;
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.5;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.action {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.5rem;
 }
 
 .card-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 1.5rem;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.card-header h3{
+    font-size: 1rem;
+    color: var(--text-color);
 }
 
 .summary {
@@ -1540,118 +1707,6 @@ header {
     font-size: 1.1rem;
     font-weight: 500;
     color: var(--text-color);
-}
-
-.faq-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.faq-item {
-    display: flex;
-    gap: 1rem;
-    padding: 1rem;
-    background: white;
-    border-radius: 6px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-.rank {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--primary-color);
-    opacity: 0.5;
-}
-
-.title {
-    font-size: 0.95rem;
-    color: var(--text-color);
-    margin-bottom: 0.5rem;
-}
-
-.meta {
-    display: flex;
-    gap: 1rem;
-    font-size: 0.8rem;
-    color: #666;
-}
-
-.trend {
-    padding: 0.15rem 0.5rem;
-    border-radius: 4px;
-    font-weight: 500;
-}
-
-.trend.rising {
-    background: rgba(244, 67, 54, 0.1);
-    color: #d32f2f;
-}
-
-.trend.falling {
-    background: rgba(76, 175, 80, 0.1);
-    color: #2e7d32;
-}
-
-/* 改善アドバイスカード */
-.improvement-card {
-    background: #f8f9fa;
-    border-radius: 8px;
-    padding: 1.5rem;
-    max-height: 500px;
-    overflow-y: auto;
-}
-
-.advice-list {
-    margin-top: 1rem;
-}
-
-.advice-item {
-    background: white;
-    border-radius: 6px;
-    padding: 1rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    margin-bottom: 1rem;
-}
-
-.advice-item:last-child {
-    margin-bottom: 0;
-}
-
-.issue {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.solution h4 {
-    font-size: 0.8rem;
-    color: #666;
-    margin-bottom: 0.5rem;
-}
-
-.solution p {
-    font-size: 0.95rem;
-    color: var(--text-color);
-    margin-bottom: 0.75rem;
-}
-
-.effect {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.8rem;
-}
-
-.effect .label {
-    color: #666;
-}
-
-.effect .value {
-    color: #2e7d32;
-    font-weight: 500;
 }
 
 #homePage {
@@ -1699,4 +1754,198 @@ header {
     color: #666;
     margin-right: 0.5rem;
     white-space: nowrap;
-} 
+}
+
+.faq-analytics .improvement-proposal {
+    border-left: none;
+    margin-bottom: 0;
+}
+
+.faq-analytics p {
+    white-space: pre-line;
+}
+
+.faq-analytics .apply-btn {
+    padding: 5px 0;
+}
+
+.improvement-summary {
+    background: white;
+    padding: 0 2rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.improvement-header {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.improvement-header h3 {
+    font-size: 1.1rem;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.metrics-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.metric-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.metric-main {
+    margin-bottom: 1rem;
+}
+
+.current-value {
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--primary-color);
+    line-height: 1;
+}
+
+.unit {
+    font-size: 1rem;
+    color: var(--text-color);
+    margin-left: 0.25rem;
+}
+
+.metric-label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 0.25rem;
+}
+
+.improvement-effect {
+    background: rgba(255, 152, 0, 0.08);
+    border-radius: 8px;
+    padding: 1.25rem;
+    text-align: center;
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.improvement-effect strong {
+    color: #ff9800;
+    font-weight: 500;
+}
+
+.faq-analytics .improvement-summary {
+    background: white;
+    padding: 0 3rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.faq-analytics .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.faq-analytics .metric-box {
+    display: flex;
+    flex-direction: column;
+    padding: 0rem 1.5rem;
+    background: white;
+    border-radius: 8px;
+    position: relative;
+}
+
+/* 区切り線を修正 */
+.faq-analytics .metric-box:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: -0.5rem;
+    top: 2rem;
+    bottom: 1rem;
+    width: 1px;
+    background: rgba(0, 0, 0, 0.08);
+    box-shadow: none;
+}
+
+.faq-analytics .metric-label {
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 0.4rem;
+    text-align: center;
+}
+
+.faq-analytics .metric-main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 0.4rem;
+}
+
+.faq-analytics .metric-current,
+.faq-analytics .metric-target {
+    display: flex;
+    align-items: baseline;
+}
+
+.faq-analytics .current-value,
+.faq-analytics .target-value {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--primary-color);
+    line-height: 1;
+}
+
+.faq-analytics .metric-arrow {
+    color: #666;
+    font-size: 1.2rem;
+}
+
+.faq-analytics .unit {
+    font-size: 0.9rem;
+    color: #666;
+    margin-left: 0.25rem;
+}
+
+.faq-analytics .total-improvement {
+    text-align: center;
+    color: #666;
+    font-size: 0.9rem;
+    padding-top: 0.4rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.faq-analytics .total-improvement strong {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.faq-analytics .summary {
+    display: none;
+}
+
+.faq-analytics .improvement-proposal .expected-effect {
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.faq-analytics .improvement-proposal .effect-label {
+    color: #666;
+    font-size: 0.8rem;
+}
+
+.faq-analytics .improvement-proposal .effect-value {
+    color: #2e7d32;    ;  /* 緑色のアクセント */
+    font-weight: 500;
+    font-size: 1.1rem;
+}
