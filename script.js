@@ -18,68 +18,65 @@ document.querySelector('.modal-overlay').addEventListener('click', () => {
     document.getElementById('tutorialModal').classList.remove('active');
 });
 
-// 既存のコードに追加
+// 期間選択のイベントリスナー (既存のコードを置き換え)
+document.addEventListener('DOMContentLoaded', function() {
+    // プルダウン変更時のイベントリスナー
+    document.querySelectorAll('.period-select').forEach(select => {
+        select.addEventListener('change', (e) => {
+            const period = e.target.value;
+            const container = e.target.closest('.period-selector');
+            
+            // ページIDを取得
+            let pageId = 'homePage';
+            const analyticsPage = container.closest('#analyticsPage');
+            if (analyticsPage) {
+                pageId = 'analyticsPage';
+            }
+            
+            // データの更新
+            updateAnalytics(period, pageId);
+        });
+    });
+    
+    // 以下、既存のコードは維持...
+});
+
+// analyticsDataオブジェクトを新しい期間に対応
 const analyticsData = {
-    daily: {
+    '7days': {
         totalUsers: { value: 425, prevValue: 420 },
         activeUsers: { value: 324, rate: 76, prevValue: 310, prevRate: 72 },
         studyTime: { value: 42, prevValue: 38 },
         actionCount: { value: 3.8, prevValue: 4.0 }
     },
-    weekly: {
+    '28days': {
         totalUsers: { value: 420, prevValue: 410 },
         activeUsers: { value: 298, rate: 72, prevValue: 285, prevRate: 70 },
         studyTime: { value: 38, prevValue: 35 },
         actionCount: { value: 3.5, prevValue: 3.6 }
     },
-    monthly: {
+    '90days': {
         totalUsers: { value: 410, prevValue: 395 },
         activeUsers: { value: 276, rate: 68, prevValue: 265, prevRate: 65 },
         studyTime: { value: 35, prevValue: 33 },
         actionCount: { value: 3.2, prevValue: 3.3 }
+    },
+    '365days': {
+        totalUsers: { value: 400, prevValue: 380 },
+        activeUsers: { value: 260, rate: 65, prevValue: 245, prevRate: 64 },
+        studyTime: { value: 33, prevValue: 30 },
+        actionCount: { value: 3.0, prevValue: 2.9 }
+    },
+    'all': {
+        totalUsers: { value: 450, prevValue: 430 },
+        activeUsers: { value: 290, rate: 64, prevValue: 275, prevRate: 64 },
+        studyTime: { value: 35, prevValue: 32 },
+        actionCount: { value: 3.1, prevValue: 3.0 }
     }
 };
 
-// 期間選択ボタンのイベントリスナー
-document.querySelectorAll('#homePage .period-selector button, #analyticsPage .period-selector button').forEach(button => {
-    button.addEventListener('click', () => {
-        // アクティブクラスの切り替え
-        const container = button.closest('.period-selector');
-        container.querySelector('button.active').classList.remove('active');
-        button.classList.add('active');
-
-        // データの更新
-        const period = button.dataset.period;
-        const page = button.closest('[id]').id;
-        updateAnalytics(period, page);
-    });
-});
-
-function updateAnalytics(period, pageId) {
-    const data = analyticsData[period];
-    const periodText = {
-        'daily': '前日',
-        'weekly': '先週',
-        'monthly': '先月'
-    }[period];
-
-    // 各カードの値を更新
-    const container = document.querySelector(`#${pageId} .analytics-grid`);
-    updateCard('総受講者数', data.totalUsers, periodText, false);
-    updateCard('アクティブユーザー', data.activeUsers, periodText, true);
-    updateCard('平均学習時間', data.studyTime, periodText, false);
-    updateCard('平均アクション完了数', data.actionCount, periodText, false);
-
-    // アナリティクスページの場合、グラフも更新
-    if (pageId === 'analyticsPage' && window.analyticsChart) {
-        const { labels, data: chartData } = generateSampleData(30);
-        window.analyticsChart.data.labels = labels;
-        window.analyticsChart.data.datasets[0].data = chartData;
-        window.analyticsChart.update();
-    }
-}
-
-function updateCard(title, data, periodText, showRate = false) {
+// 期間表示のテキストも更新
+function updateCard(title, data, periodText = false, showRate = false) {
     const card = [...document.querySelectorAll('#homePage .analytics-title, #analyticsPage .analytics-title')]
         .find(el => el.textContent === title)
         .parentElement;
@@ -92,26 +89,40 @@ function updateCard(title, data, periodText, showRate = false) {
             <span class="main-value">${data.value}</span>
             <span class="sub-value">(${data.rate}<span class="unit">%</span>)</span>
         `;
-        trendEl.innerHTML = `
-            <span class="trend-icon">${data.value >= data.prevValue ? '↑' : '↓'}</span>
-            <span class="trend-value">${data.prevValue}名</span>
-            <span class="trend-icon">${data.rate >= data.prevRate ? '↑' : '↓'}</span>
-            <span class="trend-rate">${data.prevRate}<span class="unit">%</span></span>
-            <span class="trend-period">${periodText}</span>
-        `;
     } else {
         valueEl.innerHTML = `
             <span class="main-value">${data.value}</span>
             <span class="unit">${getUnit(title)}</span>
         `;
-        trendEl.innerHTML = `
-            <span class="trend-icon">${data.value >= data.prevValue ? '↑' : '↓'}</span>
-            <span class="trend-value">${data.prevValue}${getUnit(title)}</span>
-            <span class="trend-period">${periodText}</span>
-        `;
     }
-
-    trendEl.className = `analytics-trend ${data.value >= data.prevValue ? 'positive' : 'negative'}`;
+    
+    // 変化の方向を決定
+    const isPositive = data.value >= data.prevValue;
+    const diff = Math.abs(data.value - data.prevValue);
+    
+    // トレンドテキストを更新
+    let trendText;
+    switch (title) {
+        case '総受講者数':
+            trendText = `前の期間より ${diff}名 ${isPositive ? '増えています' : '減っています'}`;
+            break;
+        case 'アクティブユーザー数':
+            trendText = `前の期間より ${diff}名 ${isPositive ? '増えています' : '減っています'}`;
+            break;
+        case '平均学習時間':
+            trendText = `前の期間より ${diff}分 ${isPositive ? '長くなっています' : '短くなっています'}`;
+            break;
+        case '平均アクション完了数':
+            trendText = `前の期間より ${diff.toFixed(1)}個 ${isPositive ? '増えています' : '減っています'}`;
+            break;
+    }
+    
+    trendEl.innerHTML = `
+        <span class="trend-icon">${isPositive ? '↑' : '↓'}</span>
+        <span class="trend-text">${trendText}</span>
+    `;
+    
+    trendEl.className = `analytics-trend ${isPositive ? 'positive' : 'negative'}`;
 }
 
 function getUnit(title) {
@@ -211,7 +222,8 @@ function initAnalyticsChart() {
     }
 
     // 現在選択されている期間を取得
-    const activePeriod = document.querySelector('#analyticsPage .period-selector button.active').dataset.period;
+    const periodSelect = document.querySelector('#analyticsPage .period-select');
+    const activePeriod = periodSelect ? periodSelect.value : '28days';
 
     const datasets = {
         totalUsers: generateDataForPeriod('totalUsers', activePeriod),
@@ -230,7 +242,9 @@ function initAnalyticsChart() {
                 borderColor: '#1a237e',
                 backgroundColor: 'rgba(26, 35, 126, 0.1)',
                 fill: true,
-                tension: 0.4
+                tension: 0.4,
+                pointRadius: 2,  // データポイントのサイズを小さくする
+                pointHoverRadius: 5  // ホバー時のサイズ
             }]
         },
         options: {
@@ -273,23 +287,19 @@ function initAnalyticsChart() {
                     },
                     ticks: {
                         maxRotation: 0,
-                        autoSkip: true,
-                        maxTicksLimit: 12
+                        autoSkip: false,  // 自動スキップを無効化
+                        maxTicksLimit: 31  // 表示するラベルの最大数
                     }
                 }
             }
         }
     });
 
-    // 期間選択ボタンのイベントリスナー
-    document.querySelectorAll('.graph-section .period-selector button').forEach(button => {
-        button.addEventListener('click', () => {
-            const period = button.dataset.period;
+    // 期間選択ドロップダウンのイベントリスナー
+    document.querySelectorAll('.graph-section .period-select').forEach(select => {
+        select.addEventListener('change', (e) => {
+            const period = e.target.value;
             const currentMetric = document.querySelector('.metric-selector button.active').dataset.metric;
-            
-            // アクティブ状態の更新
-            button.closest('.graph-section').querySelector('.period-selector button.active').classList.remove('active');
-            button.classList.add('active');
             
             // データセットを更新
             Object.keys(datasets).forEach(key => {
@@ -298,10 +308,6 @@ function initAnalyticsChart() {
             
             // グラフを更新
             updateChartMetric(currentMetric, datasets);
-            
-            // X軸のラベルを更新
-            window.analyticsChart.data.labels = datasets[currentMetric].labels;
-            window.analyticsChart.update();
         });
     });
 
@@ -340,34 +346,46 @@ function generateSampleData(days, baseValue, variance) {
 
 // グラフのメトリクス更新関数
 function updateChartMetric(metric, datasets) {
+    const labels = datasets[metric].labels;
+    const data = datasets[metric].data;
+    
+    // グラフ設定の更新
+    window.analyticsChart.data.labels = labels;
+    window.analyticsChart.data.datasets[0].label = getMetricLabel(metric);
+    window.analyticsChart.data.datasets[0].data = data;
+    
+    // Y軸の単位の更新
+    window.analyticsChart.options.scales.y.ticks.callback = function(value) {
+        return value + getMetricUnit(metric);
+    };
+    
+    // グラフを更新
+    window.analyticsChart.update();
+}
+
+// 指標のラベルを取得する関数
+function getMetricLabel(metric) {
     const labels = {
         totalUsers: '総受講者数',
-        activeUsers: 'アクティブユーザー',
+        activeUsers: 'アクティブユーザー数',
         studyTime: '平均学習時間',
         actionCount: '平均アクション完了数'
     };
+    return labels[metric] || metric;
+}
 
+// 指標の単位を取得する関数
+function getMetricUnit(metric) {
     const units = {
         totalUsers: '名',
         activeUsers: '名',
         studyTime: '分/日',
         actionCount: '個/日'
     };
-
-    window.analyticsChart.data.datasets[0].label = labels[metric];
-    window.analyticsChart.data.datasets[0].data = datasets[metric].data;
-    
-    // Y軸の単位を更新
-    window.analyticsChart.options.scales.y.ticks = {
-        callback: function(value) {
-            return value + units[metric];
-        }
-    };
-
-    window.analyticsChart.update();
+    return units[metric] || '';
 }
 
-// 期間に応じたデータを生成する関数
+// 期間に応じたデータを生成する関数を修正
 function generateDataForPeriod(metric, period) {
     const baseValues = {
         totalUsers: { value: 400, variance: 20 },
@@ -376,62 +394,94 @@ function generateDataForPeriod(metric, period) {
         actionCount: { value: 4, variance: 0.5 }
     };
 
-    const periodConfig = {
-        daily: { days: 30, format: 'M/D' },
-        weekly: { days: 12, format: 'M/D週' },
-        monthly: { days: 12, format: 'YYYY年M月' }
-    };
+    // 期間に応じたデータポイント数
+    const days = {
+        '7days': 7,
+        '28days': 28,
+        '90days': 90,
+        '365days': 365,
+        'all': 400 // 「全期間」のデータポイント数
+    }[period];
 
-    const config = periodConfig[period];
     const { value, variance } = baseValues[metric];
-
+    
+    // 1日ごとのデータを生成
     const data = [];
     const labels = [];
     let currentValue = value;
 
-    for (let i = 0; i < config.days; i++) {
+    for (let i = 0; i < days; i++) {
         const date = new Date();
+        date.setDate(date.getDate() - (days - i - 1));
         
-        if (period === 'daily') {
-            date.setDate(date.getDate() - (config.days - i - 1));
-        } else if (period === 'weekly') {
-            date.setDate(date.getDate() - (config.days - i - 1) * 7);
-        } else {
-            date.setMonth(date.getMonth() - (config.days - i - 1));
-        }
-
-        // 日付フォーマットの生成
+        // 日付フォーマット
         const label = formatDate(date, period);
         labels.push(label);
-
-        // 期間に応じてデータの変動を調整
-        const periodVariance = period === 'daily' ? variance : 
-                             period === 'weekly' ? variance * 2 : 
-                             variance * 3;
-
-        currentValue += Math.random() * periodVariance * 2 - periodVariance;
+        
+        // 日々の変動を計算
+        const dayVariance = variance * (0.5 + (Math.sin(i / 10) + 1) / 4);
+        currentValue += Math.random() * dayVariance * 2 - dayVariance;
         currentValue = Math.max(0, currentValue);
         data.push(Math.round(currentValue * 10) / 10);
     }
 
-    return { labels, data };
+    // ラベルを最適化
+    const optimizedLabels = optimizeLabels(labels, period, days);
+
+    return { labels: optimizedLabels, data };
 }
 
-// 日付フォーマット関数
+// ラベル表示を最適化する関数
+function optimizeLabels(labels, period, days) {
+    // 期間に応じてラベルの表示密度を最適化
+    switch(period) {
+        case '7days':
+            // 7日間はすべてのラベルを表示
+            return labels;
+            
+        case '28days':
+            // 28日間は3〜4日ごとにラベルを表示
+            return labels.map((label, i) => (i % 4 === 0 || i === days - 1) ? label : '');
+            
+        case '90days':
+            // 90日間は7日ごとにラベルを表示
+            return labels.map((label, i) => (i % 7 === 0 || i === days - 1) ? label : '');
+            
+        case '365days':
+        case 'all':
+            // 長期間は月初めのみラベル表示
+            const optimized = [];
+            for (let i = 0; i < labels.length; i++) {
+                const date = new Date();
+                date.setDate(date.getDate() - (days - i - 1));
+                optimized.push(date.getDate() === 1 || i === days - 1 ? labels[i] : '');
+            }
+            return optimized;
+            
+        default:
+            return labels;
+    }
+}
+
+// 日付フォーマット関数の改善
 function formatDate(date, period) {
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
     const day = date.getDate();
     
-    switch (period) {
-        case 'daily':
-            return `${month}/${day}`;
-        case 'weekly':
-            return `${month}/${day}週`;
-        case 'monthly':
-            return `${year}年${month}月`;
+    switch(period) {
+        case '7days':
+        case '28days':
+        case '90days':
+            return `${month}/${day}`; // 例: 3/15
+            
+        case '365days':
+        case 'all':
+            // 月初めの場合は月表示、それ以外は日付のみ
+            return day === 1 ? `${year}/${month}` : `${month}/${day}`;
+            
         default:
-            return '';
+            return `${month}/${day}`;
     }
 }
 
@@ -721,4 +771,26 @@ function initContinuityChart() {
 document.addEventListener('DOMContentLoaded', () => {
     initHeatmap();
     initContinuityChart();
-}); 
+});
+
+// updateAnalytics関数を復元・改良
+function updateAnalytics(period, pageId) {
+    const data = analyticsData[period];
+    
+    // 各カードの値を更新
+    updateCard('総受講者数', data.totalUsers, false, false);
+    updateCard('アクティブユーザー数', data.activeUsers, false, true);
+    updateCard('平均学習時間', data.studyTime, false, false);
+    updateCard('平均アクション完了数', data.actionCount, false, false);
+
+    // アナリティクスページの場合、グラフも更新
+    if (pageId === 'analyticsPage' && window.analyticsChart) {
+        // 期間に応じたデータを生成
+        const { labels, data: chartData } = generateDataForPeriod('totalUsers', period);
+        
+        // グラフを更新
+        window.analyticsChart.data.labels = labels;
+        window.analyticsChart.data.datasets[0].data = chartData;
+        window.analyticsChart.update();
+    }
+} 

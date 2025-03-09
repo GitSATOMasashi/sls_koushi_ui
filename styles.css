@@ -837,10 +837,13 @@ header {
 }
 
 .graph-container {
-    height: 400px;
     position: relative;
-    width: 100%;
-    margin-top: 1.5rem;
+    height: 300px;
+    margin: 1.5rem 0;
+    background: white;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: var(--card-shadow);
 }
 
 .period-controls {
@@ -2093,4 +2096,41 @@ header {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+}
+
+/* 期間選択プルダウンのスタイル */
+.period-select {
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 6px;
+    background: white;
+    color: var(--text-color);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+    min-width: 150px;
+    appearance: none; /* デフォルトの矢印を非表示に */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23333'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.7rem center;
+    background-size: 1rem;
+    padding-right: 2rem;
+}
+
+.period-select:hover {
+    border-color: var(--primary-color);
+}
+
+.period-select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(26, 35, 126, 0.2);
+}
+
+/* データポイントのスタイル調整 */
+canvas#analyticsChart {
+    width: 100% !important;
+    height: 100% !important;
 }
