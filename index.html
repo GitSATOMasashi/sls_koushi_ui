@@ -90,6 +90,7 @@
         <main class="content" id="mainContent">
             <!-- ホームページコンテンツ -->
             <div id="homePage">
+                <!-- 既存のアナリティクス概要セクション -->
                 <div class="analytics-overview">
                     <div class="analytics-header">
                         <div class="analytics-header-content">
@@ -860,6 +861,83 @@
 
             <!-- アナリティクスページコンテンツ -->
             <div id="analyticsPage" style="display: none;">
+                <!-- 統合アナリティクスダッシュボード -->
+                <div class="integrated-analytics-dashboard">
+                    <!-- ヘッダー部分 -->
+                    <div class="dashboard-header">
+                        <h2>統合アナリティクス（プレビュー）</h2>
+                        <div class="period-selector">
+                            <select class="integrated-period-select">
+                                <option value="7days">過去7日間</option>
+                                <option value="28days" selected>過去28日間</option>
+                                <option value="90days">過去90日間</option>
+                                <option value="365days">過去365日間</option>
+                                <option value="all">全期間</option>
+                            </select>
+                        </div>
+                    </div>
+                      
+                    <!-- 1段目：メトリックカード -->
+                    <div class="i-metric-cards">
+                        <div class="i-metric-card active" data-metric="totalUsers">
+                            <div class="i-metric-name">総受講者数</div>
+                            <div class="i-metric-value">425<span class="unit">名</span></div>
+                            <div class="i-metric-trend positive">
+                                <span class="trend-icon">↑</span>
+                                <span class="trend-text">前の期間より5名増えています</span>
+                            </div>
+                        </div>
+                        
+                        <div class="i-metric-card" data-metric="activeUsers">
+                            <div class="i-metric-name">アクティブユーザー数</div>
+                            <div class="i-metric-value">324<span class="sub-value">(76<span class="unit">%</span>)</span></div>
+                            <div class="i-metric-trend positive">
+                                <span class="trend-icon">↑</span>
+                                <span class="trend-text">前の期間より14名増えています</span>
+                            </div>
+                        </div>
+                        
+                        <div class="i-metric-card" data-metric="actionCount">
+                            <div class="i-metric-name">アクション完了数</div>
+                            <div class="i-metric-value">3.8<span class="unit">個/日</span></div>
+                            <div class="i-metric-trend negative">
+                                <span class="trend-icon">↓</span>
+                                <span class="trend-text">前の期間より0.2個減っています</span>
+                            </div>
+                        </div>
+                    </div>
+                      
+                    <!-- 2段目：データ推移グラフ -->
+                    <div class="data-trend-section">
+                        <h3 class="section-title">データ推移</h3>
+                        <div class="graph-container">
+                            <canvas id="integratedMetricChart"></canvas>
+                        </div>
+                    </div>
+                      
+                    <!-- 3段目：分析グラフ -->
+                    <div class="analysis-graphs">
+                        <div class="hourly-distribution">
+                            <h3 class="section-title">時間帯分布</h3>
+                            <div class="heatmap-container">
+                                <div class="heatmap-placeholder">
+                                    <div class="placeholder-text">時間帯分布のヒートマップ</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="continuity-analysis">
+                            <h3 class="section-title">継続日数</h3>
+                            <div class="continuity-container">
+                                <div class="continuity-placeholder">
+                                    <div class="placeholder-text">継続日数グラフ</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 既存のアナリティクスページコンテンツ -->
                 <div class="analytics-page">
                     <div class="analytics-overview">
                         <div class="analytics-header">

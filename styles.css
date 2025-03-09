@@ -2109,7 +2109,7 @@ header {
     cursor: pointer;
     transition: all var(--transition-speed) ease;
     min-width: 150px;
-    appearance: none; /* デフォルトの矢印を非表示に */
+    appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
     background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23333'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
@@ -2133,4 +2133,205 @@ header {
 canvas#analyticsChart {
     width: 100% !important;
     height: 100% !important;
+}
+
+/* 統合アナリティクスダッシュボード用スタイル修正 */
+.integrated-analytics-dashboard {
+    width: 100%;  /* 幅を100%に制限 */
+    max-width: 100%;  /* 最大幅も100%に制限 */
+    margin: 0 auto 2rem;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    box-sizing: border-box;  /* パディングを幅に含める */
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.dashboard-header h2 {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+/* 統合ダッシュボード用のセレクト */
+.integrated-period-select {
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 6px;
+    background: white;
+    color: var(--text-color);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+    min-width: 150px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23333'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.7rem center;
+    background-size: 1rem;
+    padding-right: 2rem;
+}
+
+.integrated-period-select:hover {
+    border-color: var(--primary-color);
+}
+
+.integrated-period-select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(26, 35, 126, 0.2);
+}
+
+/* i-prefix付きのクラス名に変更（競合回避） */
+.i-metric-cards {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.i-metric-card {
+    flex: 1;
+    padding: 1.25rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.i-metric-card.active {
+    background: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.i-metric-card.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background-color: var(--primary-color);
+    border-radius: 0 0 8px 8px;
+}
+
+.i-metric-name {
+    font-size: 0.875rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.i-metric-value {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 0.75rem;
+}
+
+.i-metric-value .unit {
+    font-size: 0.875rem;
+    font-weight: 400;
+    margin-left: 0.25rem;
+}
+
+.i-metric-value .sub-value {
+    font-size: 1rem;
+    margin-left: 0.5rem;
+}
+
+.i-metric-trend {
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+}
+
+.i-metric-trend.positive {
+    color: #4caf50;
+}
+
+.i-metric-trend.negative {
+    color: #f44336;
+}
+
+/* 残りのスタイルはそのまま */
+
+/* プレースホルダー要素のスタイル追加 */
+.heatmap-placeholder,
+.continuity-placeholder {
+    background: #f5f5f5;
+    border-radius: 6px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.placeholder-text {
+    color: #888;
+    font-size: 0.9rem;
+}
+
+/* データ推移セクションを追加 */
+.data-trend-section {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    height: 350px;
+}
+
+/* 分析グラフセクションを追加 */
+.analysis-graphs {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.hourly-distribution,
+.continuity-analysis {
+    flex: 1;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    padding: 1.5rem;
+}
+
+/* セクションタイトルを追加 */
+.section-title {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+}
+
+/* トレンドアイコンを追加 */
+.trend-icon {
+    font-weight: bold;
+    margin-right: 0.25rem;
+}
+
+/* レスポンシブ対応を追加 */
+@media (max-width: 768px) {
+    .i-metric-cards,
+    .analysis-graphs {
+        flex-direction: column;
+    }
+    
+    .i-metric-card,
+    .hourly-distribution,
+    .continuity-analysis {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
 }

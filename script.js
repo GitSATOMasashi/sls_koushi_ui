@@ -162,6 +162,8 @@ function showPage(pageId) {
     // アナリティクスページが表示された場合、グラフを初期化
     if (pageId === 'analyticsPage') {
         initAnalyticsChart();
+        initIntegratedChart(); // 統合グラフも初期化
+        
         // 既存のグラフを破棄して再初期化
         const existingChart = Chart.getChart('retentionChart');
         if (existingChart) {
@@ -793,4 +795,196 @@ function updateAnalytics(period, pageId) {
         window.analyticsChart.data.datasets[0].data = chartData;
         window.analyticsChart.update();
     }
+}
+
+// 統合ダッシュボードの初期化
+document.addEventListener('DOMContentLoaded', function() {
+    // グラフの初期化
+    initIntegratedChart();
+
+    // メトリックカードのクリックイベント
+    document.querySelectorAll('.i-metric-card').forEach(card => {
+        card.addEventListener('click', () => {
+            // アクティブ状態の切り替え
+            document.querySelector('.i-metric-card.active').classList.remove('active');
+            card.classList.add('active');
+            
+            // 選択されたメトリックに基づいてグラフを更新
+            updateIntegratedChart(card.dataset.metric);
+        });
+    });
+    
+    // 統合ダッシュボードの期間選択イベント
+    document.querySelector('.integrated-period-select').addEventListener('change', (e) => {
+        const period = e.target.value;
+        updateIntegratedDashboard(period);
+    });
+});
+
+// 統合グラフの初期化
+function initIntegratedChart() {
+    const ctx = document.getElementById('integratedMetricChart');
+    if (!ctx) return;
+    
+    // 既存のグラフを破棄
+    if (window.integratedChart instanceof Chart) {
+        window.integratedChart.destroy();
+    }
+    
+    // 現在選択されている期間
+    const periodSelect = document.querySelector('.integrated-period-select');
+    const activePeriod = periodSelect ? periodSelect.value : '28days';
+    
+    // 選択中のメトリック
+    const activeMetric = document.querySelector('.i-metric-card.active').dataset.metric;
+    
+    // 期間に応じたデータを生成
+    const { labels, data } = generateDataForPeriod(activeMetric, activePeriod);
+    
+    // グラフを初期化
+    window.integratedChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: getMetricLabel(activeMetric),
+                data: data,
+                borderColor: '#1a237e',
+                backgroundColor: 'rgba(26, 35, 126, 0.1)',
+                fill: true,
+                tension: 0.4,
+                pointRadius: 2,
+                pointHoverRadius: 5
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `${context.parsed.y}${getMetricUnit(activeMetric)}`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.1)',
+                    },
+                    ticks: {
+                        callback: function(value) {
+                            return value + getMetricUnit(activeMetric);
+                        }
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    },
+                    ticks: {
+                        maxRotation: 0,
+                        autoSkip: false,
+                        maxTicksLimit: 31
+                    }
+                }
+            }
+        }
+    });
+}
+
+// 統合グラフの更新
+function updateIntegratedChart(metric) {
+    if (!window.integratedChart) return;
+    
+    // 現在の期間を取得
+    const periodSelect = document.querySelector('.integrated-period-select');
+    const period = periodSelect ? periodSelect.value : '28days';
+    
+    // データを生成
+    const { labels, data } = generateDataForPeriod(metric, period);
+    
+    // グラフデータを更新
+    window.integratedChart.data.datasets[0].label = getMetricLabel(metric);
+    window.integratedChart.data.datasets[0].data = data;
+    window.integratedChart.data.labels = labels;
+    
+    // Y軸の単位を更新
+    window.integratedChart.options.scales.y.ticks.callback = function(value) {
+        return value + getMetricUnit(metric);
+    };
+    
+    window.integratedChart.options.plugins.tooltip.callbacks.label = function(context) {
+        return `${context.parsed.y}${getMetricUnit(metric)}`;
+    };
+    
+    // グラフを更新
+    window.integratedChart.update();
+}
+
+// 統合ダッシュボード全体の更新
+function updateIntegratedDashboard(period) {
+    // カードデータの更新
+    const data = analyticsData[period];
+    
+    // カード値の更新
+    updateIntegratedCard('totalUsers', data.totalUsers);
+    updateIntegratedCard('activeUsers', data.activeUsers);
+    updateIntegratedCard('actionCount', data.actionCount);
+    
+    // 選択中のメトリックを取得
+    const activeMetric = document.querySelector('.i-metric-card.active').dataset.metric;
+    
+    // グラフを更新
+    updateIntegratedChart(activeMetric);
+}
+
+// 統合カードの更新
+function updateIntegratedCard(metric, data) {
+    const card = document.querySelector(`.i-metric-card[data-metric="${metric}"]`);
+    if (!card) return;
+    
+    const valueEl = card.querySelector('.i-metric-value');
+    const trendEl = card.querySelector('.i-metric-trend');
+    
+    // メトリックが activeUsers の場合は割合も表示
+    if (metric === 'activeUsers') {
+        valueEl.innerHTML = `
+            ${data.value}<span class="sub-value">(${data.rate}<span class="unit">%</span>)</span>
+        `;
+    } else {
+        valueEl.innerHTML = `
+            ${data.value}<span class="unit">${getMetricUnit(metric)}</span>
+        `;
+    }
+    
+    // トレンド情報の更新
+    const isPositive = data.value >= data.prevValue;
+    const diff = Math.abs(data.value - data.prevValue);
+    
+    let trendText;
+    switch (metric) {
+        case 'totalUsers':
+            trendText = `前の期間より ${diff}名 ${isPositive ? '増えています' : '減っています'}`;
+            break;
+        case 'activeUsers':
+            trendText = `前の期間より ${diff}名 ${isPositive ? '増えています' : '減っています'}`;
+            break;
+        case 'actionCount':
+            trendText = `前の期間より ${diff.toFixed(1)}個 ${isPositive ? '増えています' : '減っています'}`;
+            break;
+    }
+    
+    trendEl.innerHTML = `
+        <span class="trend-icon">${isPositive ? '↑' : '↓'}</span>
+        <span class="trend-text">${trendText}</span>
+    `;
+    
+    trendEl.className = `i-metric-trend ${isPositive ? 'positive' : 'negative'}`;
 } 
