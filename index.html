@@ -877,63 +877,64 @@
                         </div>
                     </div>
                     
-                    <!-- 1段目：メトリックカード（5つ） -->
-                    <div class="i-metric-cards">
-                        <div class="i-metric-card active" data-metric="totalUsers">
-                            <div class="i-metric-name">総受講者数</div>
-                            <div class="i-metric-value">425<span class="unit">名</span></div>
-                            <div class="i-metric-trend positive">
-                                <span class="trend-icon">↑</span>
-                                <span class="trend-text">前の期間より10名増えています</span>
+                    <!-- 新しいコンテナ：メトリックとグラフを内包 -->
+                    <div class="metrics-chart-container">
+                        <!-- 1段目：メトリックカード -->
+                        <div class="i-metric-cards">
+                            <div class="i-metric-card active" data-metric="totalUsers">
+                                <div class="i-metric-name">総受講者数</div>
+                                <div class="i-metric-value">425<span class="unit">名</span></div>
+                                <div class="i-metric-trend positive">
+                                    <span class="trend-icon">↑</span>
+                                    <span class="trend-text">前の期間より10名増えています</span>
+                                </div>
+                            </div>
+                            
+                            <div class="i-metric-card" data-metric="activeUsers">
+                                <div class="i-metric-name">アクティブユーザー数</div>
+                                <div class="i-metric-value">340<span class="sub-value">(80<span class="unit">%</span>)</span></div>
+                                <div class="i-metric-trend positive">
+                                    <span class="trend-icon">↑</span>
+                                    <span class="trend-text">前の期間より15名増えています</span>
+                                </div>
+                            </div>
+                            
+                            <div class="i-metric-card" data-metric="actionCount">
+                                <div class="i-metric-name">アクション完了数</div>
+                                <div class="i-metric-value">4.2<span class="unit">個/日</span></div>
+                                <div class="i-metric-trend positive">
+                                    <span class="trend-icon">↑</span>
+                                    <span class="trend-text">前の期間より0.3個増えています</span>
+                                </div>
+                            </div>
+                            
+                            <div class="i-metric-card" data-metric="activeDays">
+                                <div class="i-metric-name">稼働日数</div>
+                                <div class="i-metric-value">4.8<span class="unit">日</span></div>
+                                <div class="i-metric-trend positive">
+                                    <span class="trend-icon">↑</span>
+                                    <span class="trend-text">前の期間より0.3日増えています</span>
+                                </div>
+                            </div>
+                            
+                            <div class="i-metric-card" data-metric="continuityDays">
+                                <div class="i-metric-name">継続日数</div>
+                                <div class="i-metric-value">3.4<span class="unit">日</span></div>
+                                <div class="i-metric-trend positive">
+                                    <span class="trend-icon">↑</span>
+                                    <span class="trend-text">前の期間より0.3日増えています</span>
+                                </div>
                             </div>
                         </div>
                         
-                        <div class="i-metric-card" data-metric="activeUsers">
-                            <div class="i-metric-name">アクティブユーザー数</div>
-                            <div class="i-metric-value">340<span class="sub-value">(80<span class="unit">%</span>)</span></div>
-                            <div class="i-metric-trend positive">
-                                <span class="trend-icon">↑</span>
-                                <span class="trend-text">前の期間より15名増えています</span>
-                            </div>
-                        </div>
-                        
-                        <div class="i-metric-card" data-metric="actionCount">
-                            <div class="i-metric-name">アクション完了数</div>
-                            <div class="i-metric-value">4.2<span class="unit">個/日</span></div>
-                            <div class="i-metric-trend positive">
-                                <span class="trend-icon">↑</span>
-                                <span class="trend-text">前の期間より0.3個増えています</span>
-                            </div>
-                        </div>
-                        
-                        <div class="i-metric-card" data-metric="activeDays">
-                            <div class="i-metric-name">稼働日数</div>
-                            <div class="i-metric-value">4.8<span class="unit">日</span></div>
-                            <div class="i-metric-trend positive">
-                                <span class="trend-icon">↑</span>
-                                <span class="trend-text">前の期間より0.3日増えています</span>
-                            </div>
-                        </div>
-                        
-                        <div class="i-metric-card" data-metric="continuityDays">
-                            <div class="i-metric-name">継続日数</div>
-                            <div class="i-metric-value">3.4<span class="unit">日</span></div>
-                            <div class="i-metric-trend positive">
-                                <span class="trend-icon">↑</span>
-                                <span class="trend-text">前の期間より0.3日増えています</span>
+                        <!-- 2段目：データ推移グラフ -->
+                        <div class="data-trend-section">
+                            <h3 class="section-title">データ推移</h3>
+                            <div class="graph-container">
+                                <canvas id="integratedMetricChart"></canvas>
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- 2段目：データ推移グラフ -->
-                    <div class="data-trend-section">
-                        <h3 class="section-title">データ推移</h3>
-                        <div class="graph-container">
-                            <canvas id="integratedMetricChart"></canvas>
-                        </div>
-                    </div>
-                    
-                    <!-- 3段目は削除 -->
                 </div>
 
                 <!-- 既存のアナリティクスページコンテンツ -->

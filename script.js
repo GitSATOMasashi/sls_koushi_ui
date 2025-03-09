@@ -914,7 +914,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// 統合グラフの初期化
+// 統合グラフの初期化関数を修正
 function initIntegratedChart() {
     const ctx = document.getElementById('integratedMetricChart');
     if (!ctx) return;
@@ -934,6 +934,10 @@ function initIntegratedChart() {
     // 期間に応じたデータを生成
     const { labels, data } = generateDataForPeriod(activeMetric, activePeriod);
     
+    // 統一カラー設定 - 総受講者数と同じ色を使用
+    const borderColor = '#1a237e';  // 紺色
+    const backgroundColor = 'rgba(26, 35, 126, 0.1)';
+    
     // グラフを初期化
     window.integratedChart = new Chart(ctx, {
         type: 'line',
@@ -942,8 +946,8 @@ function initIntegratedChart() {
             datasets: [{
                 label: getMetricLabel(activeMetric),
                 data: data,
-                borderColor: '#1a237e',
-                backgroundColor: 'rgba(26, 35, 126, 0.1)',
+                borderColor: borderColor,
+                backgroundColor: backgroundColor,
                 fill: true,
                 tension: 0.4,
                 pointRadius: 2,
@@ -967,6 +971,7 @@ function initIntegratedChart() {
             },
             scales: {
                 y: {
+                    position: 'right',  // Y軸を右側に配置
                     beginAtZero: true,
                     grid: {
                         color: 'rgba(0, 0, 0, 0.1)',
@@ -992,7 +997,7 @@ function initIntegratedChart() {
     });
 }
 
-// 統合グラフの更新
+// 統合グラフの更新関数も修正
 function updateIntegratedChart(metric) {
     if (!window.integratedChart) return;
     
@@ -1003,33 +1008,9 @@ function updateIntegratedChart(metric) {
     // データを生成
     const { labels, data } = generateDataForPeriod(metric, period);
     
-    // メトリックに応じたカラー設定
-    let borderColor, backgroundColor;
-    switch (metric) {
-        case 'totalUsers':
-            borderColor = '#1a237e';  // 紺色
-            backgroundColor = 'rgba(26, 35, 126, 0.1)';
-            break;
-        case 'activeUsers':
-            borderColor = '#0288d1';  // 青色
-            backgroundColor = 'rgba(2, 136, 209, 0.1)';
-            break;
-        case 'actionCount':
-            borderColor = '#388e3c';  // 緑色
-            backgroundColor = 'rgba(56, 142, 60, 0.1)';
-            break;
-        case 'activeDays':
-            borderColor = '#f57c00';  // オレンジ色
-            backgroundColor = 'rgba(245, 124, 0, 0.1)';
-            break;
-        case 'continuityDays':
-            borderColor = '#7b1fa2';  // 紫色
-            backgroundColor = 'rgba(123, 31, 162, 0.1)';
-            break;
-        default:
-            borderColor = '#1a237e';
-            backgroundColor = 'rgba(26, 35, 126, 0.1)';
-    }
+    // 統一カラー設定 - 総受講者数と同じ色を使用
+    const borderColor = '#1a237e';  // 紺色
+    const backgroundColor = 'rgba(26, 35, 126, 0.1)';
     
     // グラフデータを更新
     window.integratedChart.data.datasets[0].label = getMetricLabel(metric);
@@ -1070,7 +1051,7 @@ function updateIntegratedDashboard(period) {
     updateIntegratedChart(activeMetric);
 }
 
-// 統合カードの更新処理を強化
+// 統合カードの更新処理を修正
 function updateIntegratedCard(metric, data) {
     const card = document.querySelector(`.i-metric-card[data-metric="${metric}"]`);
     if (!card) return;
@@ -1093,22 +1074,48 @@ function updateIntegratedCard(metric, data) {
     const isPositive = data.value >= data.prevValue;
     const diff = Math.abs(data.value - data.prevValue);
     
+    // 現在選択されている期間を取得してテキストを生成
+    const periodSelect = document.querySelector('.integrated-period-select');
+    const selectedPeriod = periodSelect ? periodSelect.value : '28days';
+    
+    // 期間テキストを作成
+    let periodText;
+    switch (selectedPeriod) {
+        case '7days':
+            periodText = '過去7日間';
+            break;
+        case '28days':
+            periodText = '過去28日間';
+            break;
+        case '90days':
+            periodText = '過去90日間';
+            break;
+        case '365days':
+            periodText = '過去365日間';
+            break;
+        case 'all':
+            periodText = '前の期間';
+            break;
+        default:
+            periodText = '前の期間';
+    }
+    
     let trendText;
     switch (metric) {
         case 'totalUsers':
-            trendText = `前の期間より ${diff}名 ${isPositive ? '増えています' : '減っています'}`;
+            trendText = `${periodText}より<br>${diff}名 ${isPositive ? '増えています' : '減っています'}`;
             break;
         case 'activeUsers':
-            trendText = `前の期間より ${diff}名 ${isPositive ? '増えています' : '減っています'}`;
+            trendText = `${periodText}より<br>${diff}名 ${isPositive ? '増えています' : '減っています'}`;
             break;
         case 'actionCount':
-            trendText = `前の期間より ${diff.toFixed(1)}個 ${isPositive ? '増えています' : '減っています'}`;
+            trendText = `${periodText}より<br>${diff.toFixed(1)}個 ${isPositive ? '増えています' : '減っています'}`;
             break;
         case 'activeDays':
-            trendText = `前の期間より ${diff.toFixed(1)}日 ${isPositive ? '増えています' : '減っています'}`;
+            trendText = `${periodText}より<br>${diff.toFixed(1)}日 ${isPositive ? '増えています' : '減っています'}`;
             break;
         case 'continuityDays':
-            trendText = `前の期間より ${diff.toFixed(1)}日 ${isPositive ? '増えています' : '減っています'}`;
+            trendText = `${periodText}より<br>${diff.toFixed(1)}日 ${isPositive ? '増えています' : '減っています'}`;
             break;
     }
     
