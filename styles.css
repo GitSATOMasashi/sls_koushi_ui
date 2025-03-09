@@ -2194,12 +2194,14 @@ canvas#analyticsChart {
 /* i-prefix付きのクラス名に変更（競合回避） */
 .i-metric-cards {
     display: flex;
-    gap: 1rem;
+    flex-wrap: wrap;
+    gap: 0rem;
     margin-bottom: 1.5rem;
 }
 
 .i-metric-card {
-    flex: 1;
+    flex: 1 1 calc(20% - 0.8rem); /* 5つで等分するように調整 */
+    min-width: 180px; /* 最小幅を設定しモバイル対応 */
     padding: 1.25rem;
     background: #f8f9fa;
     border-radius: 8px;
@@ -2285,7 +2287,6 @@ canvas#analyticsChart {
 .data-trend-section {
     background: white;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     padding: 1.5rem;
     margin-bottom: 1.5rem;
     height: 350px;
@@ -2313,6 +2314,7 @@ canvas#analyticsChart {
     font-weight: 500;
     color: var(--text-color);
     margin-bottom: 1rem;
+    display: none;
 }
 
 /* トレンドアイコンを追加 */
@@ -2321,17 +2323,25 @@ canvas#analyticsChart {
     margin-right: 0.25rem;
 }
 
-/* レスポンシブ対応を追加 */
+/* レスポンシブ対応を強化 */
+@media (max-width: 1200px) {
+    .i-metric-card {
+        flex: 1 1 calc(33.333% - 0.67rem); /* 3カラムで表示 */
+    }
+}
+
 @media (max-width: 768px) {
-    .i-metric-cards,
-    .analysis-graphs {
+    .i-metric-card {
+        flex: 1 1 calc(50% - 0.5rem); /* 2カラムで表示 */
+    }
+}
+
+@media (max-width: 480px) {
+    .i-metric-cards {
         flex-direction: column;
     }
     
-    .i-metric-card,
-    .hourly-distribution,
-    .continuity-analysis {
+    .i-metric-card {
         width: 100%;
-        margin-bottom: 1rem;
     }
 }

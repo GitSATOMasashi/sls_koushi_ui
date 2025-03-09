@@ -41,37 +41,42 @@ document.addEventListener('DOMContentLoaded', function() {
     // 以下、既存のコードは維持...
 });
 
-// analyticsDataオブジェクトを新しい期間に対応
+// analyticsDataオブジェクトを現実的なサンプルデータで更新
 const analyticsData = {
     '7days': {
-        totalUsers: { value: 425, prevValue: 420 },
-        activeUsers: { value: 324, rate: 76, prevValue: 310, prevRate: 72 },
-        studyTime: { value: 42, prevValue: 38 },
-        actionCount: { value: 3.8, prevValue: 4.0 }
+        totalUsers: { value: 425, prevValue: 415 },
+        activeUsers: { value: 340, rate: 80, prevValue: 325, prevRate: 78 },
+        actionCount: { value: 4.2, prevValue: 3.9 },
+        activeDays: { value: 4.8, prevValue: 4.5 },
+        continuityDays: { value: 3.4, prevValue: 3.1 }
     },
     '28days': {
-        totalUsers: { value: 420, prevValue: 410 },
-        activeUsers: { value: 298, rate: 72, prevValue: 285, prevRate: 70 },
-        studyTime: { value: 38, prevValue: 35 },
-        actionCount: { value: 3.5, prevValue: 3.6 }
+        totalUsers: { value: 410, prevValue: 380 },
+        activeUsers: { value: 290, rate: 71, prevValue: 266, prevRate: 70 },
+        actionCount: { value: 3.8, prevValue: 3.6 },
+        activeDays: { value: 16.5, prevValue: 15.2 },
+        continuityDays: { value: 5.2, prevValue: 4.8 }
     },
     '90days': {
-        totalUsers: { value: 410, prevValue: 395 },
-        activeUsers: { value: 276, rate: 68, prevValue: 265, prevRate: 65 },
-        studyTime: { value: 35, prevValue: 33 },
-        actionCount: { value: 3.2, prevValue: 3.3 }
+        totalUsers: { value: 380, prevValue: 340 },
+        activeUsers: { value: 240, rate: 63, prevValue: 210, prevRate: 62 },
+        actionCount: { value: 3.2, prevValue: 3.0 },
+        activeDays: { value: 42, prevValue: 38 },
+        continuityDays: { value: 6.8, prevValue: 6.2 }
     },
     '365days': {
-        totalUsers: { value: 400, prevValue: 380 },
-        activeUsers: { value: 260, rate: 65, prevValue: 245, prevRate: 64 },
-        studyTime: { value: 33, prevValue: 30 },
-        actionCount: { value: 3.0, prevValue: 2.9 }
+        totalUsers: { value: 320, prevValue: 250 },
+        activeUsers: { value: 180, rate: 56, prevValue: 135, prevRate: 54 },
+        actionCount: { value: 2.9, prevValue: 2.7 },
+        activeDays: { value: 145, prevValue: 128 },
+        continuityDays: { value: 8.5, prevValue: 7.8 }
     },
     'all': {
-        totalUsers: { value: 450, prevValue: 430 },
-        activeUsers: { value: 290, rate: 64, prevValue: 275, prevRate: 64 },
-        studyTime: { value: 35, prevValue: 32 },
-        actionCount: { value: 3.1, prevValue: 3.0 }
+        totalUsers: { value: 450, prevValue: 425 },
+        activeUsers: { value: 245, rate: 54, prevValue: 225, prevRate: 53 },
+        actionCount: { value: 3.0, prevValue: 2.8 },
+        activeDays: { value: 156, prevValue: 140 },
+        continuityDays: { value: 9.2, prevValue: 8.6 }
     }
 };
 
@@ -371,7 +376,9 @@ function getMetricLabel(metric) {
         totalUsers: '総受講者数',
         activeUsers: 'アクティブユーザー数',
         studyTime: '平均学習時間',
-        actionCount: '平均アクション完了数'
+        actionCount: 'アクション完了数',
+        activeDays: '稼働日数',
+        continuityDays: '継続日数'
     };
     return labels[metric] || metric;
 }
@@ -382,36 +389,70 @@ function getMetricUnit(metric) {
         totalUsers: '名',
         activeUsers: '名',
         studyTime: '分/日',
-        actionCount: '個/日'
+        actionCount: '個/日',
+        activeDays: '日',
+        continuityDays: '日'
     };
     return units[metric] || '';
 }
 
-// 期間に応じたデータを生成する関数を修正
+// 現実的な時系列データ生成関数
 function generateDataForPeriod(metric, period) {
-    const baseValues = {
-        totalUsers: { value: 400, variance: 20 },
-        activeUsers: { value: 300, variance: 15 },
-        studyTime: { value: 40, variance: 5 },
-        actionCount: { value: 4, variance: 0.5 }
-    };
-
-    // 期間に応じたデータポイント数
-    const days = {
-        '7days': 7,
-        '28days': 28,
-        '90days': 90,
-        '365days': 365,
-        'all': 400 // 「全期間」のデータポイント数
-    }[period];
-
-    const { value, variance } = baseValues[metric];
+    const days = period === '7days' ? 7 : 
+               period === '28days' ? 28 : 
+               period === '90days' ? 90 : 
+               period === '365days' ? 365 : 400;
     
-    // 1日ごとのデータを生成
-    const data = [];
+    // メトリックごとの基準値と変動幅
+    let baseValue, variance;
+    switch (metric) {
+        case 'totalUsers':
+            baseValue = period === '7days' ? 415 : 
+                      period === '28days' ? 380 : 
+                      period === '90days' ? 340 : 
+                      period === '365days' ? 250 : 200;
+            // 総受講者数は基本的に増加トレンド
+            variance = baseValue * 0.01; // 1%の変動
+            break;
+        case 'activeUsers':
+            baseValue = period === '7days' ? 325 : 
+                      period === '28days' ? 266 : 
+                      period === '90days' ? 210 : 
+                      period === '365days' ? 135 : 110;
+            variance = baseValue * 0.03; // 3%の変動
+            break;
+        case 'actionCount':
+            baseValue = period === '7days' ? 3.9 : 
+                      period === '28days' ? 3.6 : 
+                      period === '90days' ? 3.0 : 
+                      period === '365days' ? 2.7 : 2.5;
+            variance = baseValue * 0.08; // 8%の変動
+            break;
+        case 'activeDays':
+            // 稼働日数は期間に応じて上限が変わる
+            baseValue = period === '7days' ? 4.5 : 
+                      period === '28days' ? 15.2 : 
+                      period === '90days' ? 38 : 
+                      period === '365days' ? 128 : 140;
+            variance = Math.min(baseValue * 0.05, days * 0.05); // 5%の変動または期間の5%
+            break;
+        case 'continuityDays':
+            baseValue = period === '7days' ? 3.1 : 
+                      period === '28days' ? 4.8 : 
+                      period === '90days' ? 6.2 : 
+                      period === '365days' ? 7.8 : 8.6;
+            variance = baseValue * 0.06; // 6%の変動
+            break;
+        default:
+            baseValue = 100;
+            variance = 10;
+    }
+    
+    // 時系列データ生成
     const labels = [];
-    let currentValue = value;
-
+    const data = [];
+    let currentValue = baseValue;
+    
     for (let i = 0; i < days; i++) {
         const date = new Date();
         date.setDate(date.getDate() - (days - i - 1));
@@ -420,17 +461,69 @@ function generateDataForPeriod(metric, period) {
         const label = formatDate(date, period);
         labels.push(label);
         
-        // 日々の変動を計算
-        const dayVariance = variance * (0.5 + (Math.sin(i / 10) + 1) / 4);
-        currentValue += Math.random() * dayVariance * 2 - dayVariance;
-        currentValue = Math.max(0, currentValue);
+        // 曜日効果
+        const dayOfWeek = date.getDay();
+        const weekendFactor = (dayOfWeek === 0 || dayOfWeek === 6) ? 0.85 : 1.05;
+        
+        // トレンド効果（緩やかな波）
+        const trendFactor = 1 + (Math.sin(i / 30) * 0.02);
+        
+        // 特別イベント（約30日に1回のスパイク）
+        const eventFactor = (i % 30 === 0 && i !== 0) ? 1.15 : 1;
+        
+        // ランダム変動
+        const randomVariance = variance * (Math.random() * 2 - 1);
+        
+        // メトリック固有の処理
+        if (metric === 'totalUsers') {
+            // 総受講者数は基本的に増加または横ばい（減少しにくい）
+            currentValue = Math.max(currentValue + randomVariance * 0.5, baseValue);
+            
+            // 月初めに成長率が高い傾向
+            if (date.getDate() <= 5) {
+                currentValue += variance * 2;
+            }
+        } else if (metric === 'activeDays') {
+            // 稼働日数は期間の上限を超えない
+            currentValue = Math.min(
+                Math.max(baseValue + randomVariance * weekendFactor * trendFactor * eventFactor, 0),
+                days
+            );
+        } else if (metric === 'continuityDays') {
+            // 継続日数は通常小さな値
+            currentValue = Math.max(
+                Math.min(baseValue + randomVariance * weekendFactor * trendFactor * eventFactor, 14),
+                1
+            );
+        } else {
+            // その他のメトリックは通常の変動
+            currentValue = Math.max(
+                currentValue + randomVariance * weekendFactor * trendFactor * eventFactor,
+                baseValue * 0.7
+            );
+        }
+        
+        // 値をデータ配列に追加（小数点以下1桁に丸める）
         data.push(Math.round(currentValue * 10) / 10);
     }
-
+    
+    // 現実的なデータの流れになるよう、必要に応じて平滑化
+    smoothData(data);
+    
     // ラベルを最適化
     const optimizedLabels = optimizeLabels(labels, period, days);
-
+    
     return { labels: optimizedLabels, data };
+}
+
+// データを平滑化する関数（急激な変動を抑える）
+function smoothData(data) {
+    for (let i = 1; i < data.length - 1; i++) {
+        // 前後の値との平均を30%反映（弱めの平滑化）
+        const avg = (data[i-1] + data[i] + data[i+1]) / 3;
+        data[i] = data[i] * 0.7 + avg * 0.3;
+        data[i] = Math.round(data[i] * 10) / 10; // 小数点以下1桁に丸める
+    }
 }
 
 // ラベル表示を最適化する関数
@@ -910,9 +1003,39 @@ function updateIntegratedChart(metric) {
     // データを生成
     const { labels, data } = generateDataForPeriod(metric, period);
     
+    // メトリックに応じたカラー設定
+    let borderColor, backgroundColor;
+    switch (metric) {
+        case 'totalUsers':
+            borderColor = '#1a237e';  // 紺色
+            backgroundColor = 'rgba(26, 35, 126, 0.1)';
+            break;
+        case 'activeUsers':
+            borderColor = '#0288d1';  // 青色
+            backgroundColor = 'rgba(2, 136, 209, 0.1)';
+            break;
+        case 'actionCount':
+            borderColor = '#388e3c';  // 緑色
+            backgroundColor = 'rgba(56, 142, 60, 0.1)';
+            break;
+        case 'activeDays':
+            borderColor = '#f57c00';  // オレンジ色
+            backgroundColor = 'rgba(245, 124, 0, 0.1)';
+            break;
+        case 'continuityDays':
+            borderColor = '#7b1fa2';  // 紫色
+            backgroundColor = 'rgba(123, 31, 162, 0.1)';
+            break;
+        default:
+            borderColor = '#1a237e';
+            backgroundColor = 'rgba(26, 35, 126, 0.1)';
+    }
+    
     // グラフデータを更新
     window.integratedChart.data.datasets[0].label = getMetricLabel(metric);
     window.integratedChart.data.datasets[0].data = data;
+    window.integratedChart.data.datasets[0].borderColor = borderColor;
+    window.integratedChart.data.datasets[0].backgroundColor = backgroundColor;
     window.integratedChart.data.labels = labels;
     
     // Y軸の単位を更新
@@ -933,10 +1056,12 @@ function updateIntegratedDashboard(period) {
     // カードデータの更新
     const data = analyticsData[period];
     
-    // カード値の更新
+    // カード値の更新（すべてのメトリックを更新）
     updateIntegratedCard('totalUsers', data.totalUsers);
     updateIntegratedCard('activeUsers', data.activeUsers);
     updateIntegratedCard('actionCount', data.actionCount);
+    updateIntegratedCard('activeDays', data.activeDays);
+    updateIntegratedCard('continuityDays', data.continuityDays);
     
     // 選択中のメトリックを取得
     const activeMetric = document.querySelector('.i-metric-card.active').dataset.metric;
@@ -945,7 +1070,7 @@ function updateIntegratedDashboard(period) {
     updateIntegratedChart(activeMetric);
 }
 
-// 統合カードの更新
+// 統合カードの更新処理を強化
 function updateIntegratedCard(metric, data) {
     const card = document.querySelector(`.i-metric-card[data-metric="${metric}"]`);
     if (!card) return;
@@ -978,6 +1103,12 @@ function updateIntegratedCard(metric, data) {
             break;
         case 'actionCount':
             trendText = `前の期間より ${diff.toFixed(1)}個 ${isPositive ? '増えています' : '減っています'}`;
+            break;
+        case 'activeDays':
+            trendText = `前の期間より ${diff.toFixed(1)}日 ${isPositive ? '増えています' : '減っています'}`;
+            break;
+        case 'continuityDays':
+            trendText = `前の期間より ${diff.toFixed(1)}日 ${isPositive ? '増えています' : '減っています'}`;
             break;
     }
     
