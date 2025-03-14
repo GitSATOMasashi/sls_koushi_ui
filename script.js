@@ -212,6 +212,72 @@ document.addEventListener('DOMContentLoaded', function() {
     if (hash) {
         showPage(hash);
     }
+
+    // ハンバーガーメニューおよびサイドバー制御の修正
+    const hamburgerBtn = document.querySelector('.hamburger-menu');
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.querySelector('.sidebar-overlay');
+    const mainContent = document.getElementById('mainContent');
+    
+    if (hamburgerBtn && sidebar && overlay && mainContent) {
+        // PCでもサイドバーを折りたためるようにする関数
+        function toggleSidebar() {
+            document.body.classList.toggle('sidebar-collapsed');
+            
+            // モバイル表示ではオーバーレイも制御
+            if (window.innerWidth <= 1024) {
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+            }
+        }
+        
+        // ハンバーガーメニュークリック時
+        hamburgerBtn.addEventListener('click', toggleSidebar);
+        
+        // オーバーレイクリック時にメニューを閉じる
+        overlay.addEventListener('click', function() {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.classList.remove('menu-open');
+            document.body.classList.add('sidebar-collapsed');
+        });
+        
+        // サイドバー内のリンククリック時にメニューを閉じる（モバイル時のみ）
+        const sidebarLinks = sidebar.querySelectorAll('a');
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 1024) {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                    document.body.classList.remove('menu-open');
+                    document.body.classList.add('sidebar-collapsed');
+                }
+            });
+        });
+        
+        // ウィンドウリサイズ時の処理
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 1024) {
+                // PC表示に戻った場合、モバイル用のクラスをリセット
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.classList.remove('menu-open');
+                
+                // PC表示でのサイドバーの状態は維持
+            } else {
+                // モバイル表示に切り替わった場合
+                if (!document.body.classList.contains('sidebar-collapsed')) {
+                    document.body.classList.add('sidebar-collapsed');
+                }
+            }
+        });
+        
+        // 初期表示設定 - モバイル表示ではサイドバーを非表示に
+        if (window.innerWidth <= 1024) {
+            document.body.classList.add('sidebar-collapsed');
+        }
+    }
 });
 
 // グラフの初期化関数

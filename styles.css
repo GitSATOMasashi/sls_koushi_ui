@@ -105,19 +105,22 @@ header {
 
 .main-container {
     display: flex;
-    min-height: calc(100vh - 52px);
-    margin-top: 52px;
+    margin-top: 60px;
 }
 
 .sidebar {
     width: var(--sidebar-width);
-    background-color: white;
+    min-width: var(--sidebar-width);
+    position: fixed;
+    top: 60px;
+    left: 0;
+    height: calc(100vh - 60px);
+    overflow-y: auto;
+    background: white;
+    transition: transform 0.3s ease;
+    z-index: 1000;
     padding: 1.5rem 0;
     box-shadow: var(--card-shadow);
-    position: fixed;
-    top: 52px;
-    bottom: 0;
-    overflow-y: auto;
 }
 
 .sidebar ul {
@@ -182,11 +185,16 @@ header {
     opacity: 0.7;
 }
 
-.content {
-    flex: 1;
-    padding: 2rem;
-    overflow-y: auto;
+#mainContent {
+    width: calc(100% - var(--sidebar-width));
     margin-left: var(--sidebar-width);
+    transition: width 0.3s ease, margin-left 0.3s ease;
+}
+
+.content {
+    padding: 1.5rem;
+    width: 100%;
+    transition: width 0.3s ease;
 }
 
 .faq-content {
@@ -264,7 +272,6 @@ header {
     white-space: nowrap;
 }
 
-/* スクロールバーのスタイリング */
 .action-map-grid::-webkit-scrollbar {
     height: 8px;
 }
@@ -364,7 +371,6 @@ header {
     margin-bottom: 0;
 }
 
-/* チュートリアルカードのスタイル */
 .tutorial-card {
     background: var(--secondary-color);
     border-radius: 12px;
@@ -450,7 +456,6 @@ header {
     font-size: 0.8rem;
 }
 
-/* レスポンシブ対応 */
 @media (max-width: 768px) {
     .tutorial-card {
         padding: 2rem 1.5rem;
@@ -465,7 +470,6 @@ header {
     }
 }
 
-/* モーダルのスタイル */
 .modal {
     display: none;
     position: fixed;
@@ -546,7 +550,7 @@ header {
 
 .video-container {
     position: relative;
-    padding-bottom: 56.25%; /* 16:9 アスペクト比 */
+    padding-bottom: 56.25%;
     height: 0;
     overflow: hidden;
 }
@@ -559,7 +563,6 @@ header {
     height: 100%;
 }
 
-/* アナリティクス概要のスタイル */
 .analytics-overview {
     background: white;
     border-radius: 12px;
@@ -674,7 +677,7 @@ header {
 }
 
 .analytics-trend.neutral {
-    color: #757575; /* グレー色 */
+    color: #757575;
 }
 
 .trend-icon {
@@ -760,7 +763,6 @@ header {
     margin-bottom: 0;
 }
 
-/* グラフセクション */
 .graph-section {
     background: white;
     border-radius: 12px;
@@ -845,7 +847,6 @@ header {
     background: white;
     border-radius: 8px;
     padding: 1rem;
-    /* box-shadow: var(--card-shadow); */
     margin-top: 0px;
 }
 
@@ -899,7 +900,6 @@ header {
     cursor: pointer;
 }
 
-/* 成長指標のスタイル */
 .growth-metrics {
     background: white;
     border-radius: 12px;
@@ -994,7 +994,6 @@ header {
     color: #4caf50;
 }
 
-/* 共通のスタイル */
 .skill-stats,
 .retention-stats,
 .motivation-stats {
@@ -1058,7 +1057,6 @@ header {
     color: #4caf50;
 }
 
-/* アクション実行状況のスタイル */
 .action-analytics {
     background: white;
     border-radius: 12px;
@@ -1301,15 +1299,14 @@ header {
     margin-top: 0.5rem;
 }
 
-/* エンゲージメント指標のスタイル */
 .engagement-metrics {
     background: white;
     border-radius: 12px;
     padding: 1.5rem;
     margin-top: 2rem;
     box-shadow: var(--card-shadow);
-    overflow: hidden; /* はみ出した内容を隠す */
-    width: 100%; /* 幅を100%に設定 */
+    overflow: hidden;
+    width: 100%;
     display: none;
 }
 
@@ -1317,8 +1314,8 @@ header {
     display: grid;
     grid-template-columns: 35% 65%;
     gap: 1.5rem;
-    width: 100%; /* 幅を100%に設定 */
-    max-width: 100%; /* 最大幅を100%に制限 */
+    width: 100%;
+    max-width: 100%;
     padding-right: 1.5rem;
 }
 
@@ -1339,7 +1336,6 @@ header {
     gap: 0.5rem;
 }
 
-/* 学習時間帯分布 */
 .time-distribution {
     display: flex;
     flex-direction: column;
@@ -1392,14 +1388,14 @@ header {
     display: grid;
     grid-template-columns: repeat(24, 1fr);
     gap: 2px;
-    height: 60px;  /* 高さを固定 */
+    height: 60px;
     margin: 0.5rem 0;
 }
 
 .heatmap-cell {
     background-color: var(--cell-color, rgba(26, 35, 126, 0.1));
     border-radius: 2px;
-    height: 100%;  /* 親要素の高さいっぱいに */
+    height: 100%;
     transition: transform 0.2s ease;
     cursor: pointer;
 }
@@ -1428,7 +1424,6 @@ header {
     );
 }
 
-/* コメント・質問活性度 */
 .interaction-metrics {
     display: flex;
     flex-direction: column;
@@ -1516,7 +1511,6 @@ header {
     color: var(--text-color);
 }
 
-/* 質問分析のスタイル */
 .faq-analytics {
     background: white;
     border-radius: 12px;
@@ -1888,7 +1882,6 @@ header {
     position: relative;
 }
 
-/* 区切り線を修正 */
 .faq-analytics .metric-box:not(:last-child)::after {
     content: '';
     position: absolute;
@@ -1973,12 +1966,11 @@ header {
 }
 
 .faq-analytics .improvement-proposal .effect-value {
-    color: #2e7d32;    ;  /* 緑色のアクセント */
+    color: #2e7d32;
     font-weight: 500;
     font-size: 1.1rem;
 }
 
-/* 学習継続性のスタイル */
 .continuity-stats {
     display: flex;
     flex-direction: column;
@@ -2010,11 +2002,10 @@ header {
     gap: 0.25rem;
     padding: 0.25rem;
     min-height: 90px;
-    max-width: 25%; /* 最大幅を25%に制限（4つで100%） */
-    box-sizing: border-box; /* パディングを幅に含める */
+    max-width: 25%;
+    box-sizing: border-box;
 }
 
-/* 各メトリックの幅を調整して4つ並べても見やすくする */
 .continuity-metric .label {
     font-size: 0.75rem;
     color: #666;
@@ -2056,7 +2047,7 @@ header {
     hyphens: auto;
     max-width: 100%;
     display: inline-block;
-    font-size: 0.65rem; /* さらに小さく */
+    font-size: 0.65rem;
 }
 
 .continuity-metric .trend-text::after {
@@ -2064,7 +2055,6 @@ header {
     white-space: pre;
 }
 
-/* faq-analyticsのcard-headerを修正 */
 .faq-analytics .card-header {
     display: flex;
     justify-content: space-between;
@@ -2080,7 +2070,6 @@ header {
     gap: 0.5rem;
 }
 
-/* ドットインジケーターを追加 */
 .faq-analytics .card-header h3::before {
     content: '';
     display: block;
@@ -2090,7 +2079,6 @@ header {
     border-radius: 50%;
 }
 
-/* faq-analyticsのcard-headerを修正 - カウント表示を追加 */
 .faq-analytics .card-header .count {
     color: #ff9800;
     font-size: 1rem;
@@ -2102,7 +2090,6 @@ header {
     justify-content: center;
 }
 
-/* 期間選択プルダウンのスタイル */
 .period-select {
     padding: 0.5rem 1rem;
     border: 1px solid rgba(0,0,0,0.1);
@@ -2133,22 +2120,19 @@ header {
     box-shadow: 0 0 0 2px rgba(26, 35, 126, 0.2);
 }
 
-/* データポイントのスタイル調整 */
 canvas#analyticsChart {
     width: 100% !important;
     height: 100% !important;
 }
 
-/* 統合アナリティクスダッシュボード用スタイル修正 */
 .integrated-analytics-dashboard {
-    width: 100%;  /* 幅を100%に制限 */
-    max-width: 100%;  /* 最大幅も100%に制限 */
+    width: 100%;
+    max-width: 100%;
     margin: 0 auto 2rem;
     padding: 1.5rem;
     background: white;
     border-radius: 12px;
-    box-shadow: var(--card-shadow);
-    box-sizing: border-box;  /* パディングを幅に含める */
+    box-sizing: border-box;
 }
 
 .dashboard-header {
@@ -2164,7 +2148,6 @@ canvas#analyticsChart {
     color: var(--text-color);
 }
 
-/* 統合ダッシュボード用のセレクト */
 .integrated-period-select {
     padding: 0.5rem 1rem;
     border: 1px solid rgba(0,0,0,0.1);
@@ -2195,7 +2178,6 @@ canvas#analyticsChart {
     box-shadow: 0 0 0 2px rgba(26, 35, 126, 0.2);
 }
 
-/* i-prefix付きのクラス名に変更（競合回避） */
 .i-metric-cards {
     display: flex;
     flex-wrap: wrap;
@@ -2204,12 +2186,11 @@ canvas#analyticsChart {
 }
 
 .i-metric-card {
-    flex: 1 1 calc(20% - 0.8rem); /* 5つで等分するように調整 */
-    min-width: 180px; /* 最小幅を設定しモバイル対応 */
+    flex: 1 1 calc(20% - 0.8rem);
+    min-width: 180px;
     padding: 1.25rem;
     background: #f9f9f9;
     border-radius: 0px;
-    /* box-shadow: 0 2px 8px rgba(0,0,0,0.06); */
     cursor: pointer;
     transition: all 0.2s ease;
     position: relative;
@@ -2218,7 +2199,6 @@ canvas#analyticsChart {
 
 .i-metric-card.active {
     background: white;
-    /* box-shadow: 0 4px 12px rgba(0,0,0,0.1); */
 }
 
 .i-metric-card.active::after {
@@ -2228,8 +2208,6 @@ canvas#analyticsChart {
     left: 0;
     right: 0;
     height: 4px;
-    /*background-color: var(--primary-color);*/
-    /* border-radius: 0 0 8px 8px; */
 }
 
 .i-metric-name {
@@ -2272,9 +2250,6 @@ canvas#analyticsChart {
     color: #6e6e6e;
 }
 
-/* 残りのスタイルはそのまま */
-
-/* プレースホルダー要素のスタイル追加 */
 .heatmap-placeholder,
 .continuity-placeholder {
     background: #f5f5f5;
@@ -2290,7 +2265,6 @@ canvas#analyticsChart {
     font-size: 0.9rem;
 }
 
-/* データ推移セクションを追加 */
 .data-trend-section {
     background: white;
     border-radius: 8px;
@@ -2299,7 +2273,6 @@ canvas#analyticsChart {
     height: 350px;
 }
 
-/* 分析グラフセクションを追加 */
 .analysis-graphs {
     display: flex;
     gap: 1.5rem;
@@ -2315,7 +2288,6 @@ canvas#analyticsChart {
     padding: 1.5rem;
 }
 
-/* セクションタイトルを追加 */
 .section-title {
     font-size: 1rem;
     font-weight: 500;
@@ -2324,45 +2296,168 @@ canvas#analyticsChart {
     display: none;
 }
 
-/* トレンドアイコンを追加 */
 .trend-icon {
     font-weight: bold;
     margin-right: 0.25rem;
 }
 
-/* レスポンシブ対応を強化 */
 @media (max-width: 1200px) {
     .i-metric-card {
-        flex: 1 1 calc(33.333% - 0.67rem); /* 3カラムで表示 */
+        flex: 1 1 calc(33.333% - 0.67rem);
     }
 }
 
 @media (max-width: 768px) {
     .i-metric-card {
-        flex: 1 1 calc(50% - 0.5rem); /* 2カラムで表示 */
+        flex: 1 1 calc(50% - 0.5rem);
     }
 }
 
-@media (max-width: 480px) {
-    .i-metric-cards {
-        flex-direction: column;
-    }
-    
+@media (max-width: 480px) {  
     .i-metric-card {
         width: 100%;
     }
 }
 
-/* メトリックとグラフのコンテナ */
 .metrics-chart-container {
     display: flex;
     flex-direction: column;
     background: white;
     border-radius: 20px;
-    overflow: hidden; /* 内部要素のborder-radiusを無視させない */
+    overflow: hidden;
     border: 1px solid #e8e8e8;
 }
 
 #integratedMetricChart{
     height: 300px !important;
+}
+
+.hamburger-menu {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    cursor: pointer;
+    padding: 5px;
+    margin-right: 15px;
+}
+
+.hamburger-icon {
+    line-height: 1;
+}
+
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+@media screen and (max-width: 1024px) {
+    .hamburger-menu {
+        display: block;
+    }
+    
+    .header-container {
+        padding: 0.4rem 1rem;
+    }
+    
+    .logo-suffix {
+        display: none;
+    }
+    
+    .logo-image {
+        height: 18px;
+    }
+    
+    .course-select {
+        display: none;
+    }
+    
+    .sidebar {
+        transform: translateX(-100%);
+    }
+    
+    .sidebar.active {
+        transform: translateX(0);
+    }
+    
+    .sidebar-overlay.active {
+        display: block;
+    }
+    
+    .main-container {
+        margin-left: 0;
+    }
+    
+    .content {
+        min-width: 980px;
+        overflow-x: auto;
+    }
+    
+    .integrated-analytics-dashboard {
+        min-width: 960px;
+    }
+    
+    .i-metric-cards {
+        flex-wrap: nowrap;
+    }
+    
+    .i-metric-card {
+        min-width: 180px;
+    }
+}
+
+body.menu-open {
+    overflow: hidden;
+}
+
+@media screen and (max-width: 1024px) {
+    .data-trend-section {
+        min-width: 940px;
+    }
+    
+    .graph-container {
+        min-height: 300px;
+    }
+    
+    .content::-webkit-scrollbar {
+        height: 8px;
+    }
+    
+    .content::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+    
+    .content::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 4px;
+    }
+    
+    .content::-webkit-scrollbar-thumb:hover {
+        background: #aaa;
+    }
+}
+
+/* サイドバー非表示時のメインコンテンツ調整 */
+body.sidebar-collapsed #mainContent {
+    margin-left: 0;
+    width: 100%;
+}
+
+/* サイドバーの状態を示すクラス */
+body.sidebar-collapsed .sidebar {
+    transform: translateX(-100%);
+}
+
+/* サイドバー表示状態ではモバイルでオーバーレイを表示 */
+@media screen and (max-width: 1024px) {
+    body:not(.sidebar-collapsed) .sidebar-overlay {
+        display: block;
+    }
 }
