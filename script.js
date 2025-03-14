@@ -39,6 +39,31 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // 以下、既存のコードは維持...
+    
+    // 新規コース作成ボタンのイベントリスナー
+    const createCourseBtn = document.querySelector('.create-btn');
+    if (createCourseBtn) {
+        createCourseBtn.addEventListener('click', function() {
+            // 以下を実際の新規コース作成機能に合わせて実装
+            alert('新規コース作成機能は現在開発中です。近日公開予定です。');
+            // または実際の新規作成ページへリダイレクト
+            // window.location.href = '/create-course';
+        });
+    }
+    
+    // 新規コース作成エリア全体をクリック可能にする
+    const createCourseContainer = document.querySelector('.create-course-container');
+    if (createCourseContainer) {
+        createCourseContainer.addEventListener('click', function(e) {
+            // コンテナ内のボタン以外の領域がクリックされた場合のみ実行
+            if (!e.target.classList.contains('create-btn')) {
+                const btn = this.querySelector('.create-btn');
+                if (btn) btn.click();
+            }
+        });
+        // ホバー時にカーソル形状を変更
+        createCourseContainer.style.cursor = 'pointer';
+    }
 });
 
 // analyticsDataオブジェクトを現実的なサンプルデータで更新
