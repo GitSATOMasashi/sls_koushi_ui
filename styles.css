@@ -1141,13 +1141,6 @@ header {
     line-height: 1.5;
 }
 
-.question-footer {
-    display: flex;
-    justify-content: flex-end;
-    padding-top: 0.5rem;
-    display: none;
-}
-
 .question-date {
     font-size: 12px;
     color: #999;
