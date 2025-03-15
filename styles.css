@@ -1409,10 +1409,6 @@ header {
     font-weight: 500;
 }
 
-.faq-analytics .summary {
-    display: none;
-}
-
 .faq-analytics .improvement-proposal .expected-effect {
     margin-top: 0.5rem;
     padding-top: 0.5rem;
