@@ -843,17 +843,6 @@ header {
     cursor: pointer;
 }
 
-.growth-metrics {
-    background: white;
-    border-radius: 12px;
-    padding: 1.5rem;
-    margin-top: 2rem;
-    box-shadow: var(--card-shadow);
-    overflow: hidden;
-    width: 100%;
-    display: none;
-}
-
 .engagement-grid {
     display: grid;
     grid-template-columns: 35% 65%;
