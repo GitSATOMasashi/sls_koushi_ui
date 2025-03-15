@@ -1141,30 +1141,6 @@ header {
     line-height: 1.5;
 }
 
-.question-details {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 1rem;
-    background: #f5f5f5;
-    border-radius: 4px;
-    margin-bottom: 1rem;
-    display: none;
-}
-
-.question-details .label {
-    display: block;
-    font-size: 13px;
-    color: #666;
-    margin-bottom: 0.25rem;
-}
-
-.question-details p {
-    font-size: 14px;
-    color: var(--text-color);
-    line-height: 1.5;
-}
-
 .question-footer {
     display: flex;
     justify-content: flex-end;
