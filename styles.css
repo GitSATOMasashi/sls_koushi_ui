@@ -1716,14 +1716,6 @@ canvas#analyticsChart {
     height: 350px;
 }
 
-.section-title {
-    font-size: 1rem;
-    font-weight: 500;
-    color: var(--text-color);
-    margin-bottom: 1rem;
-    display: none;
-}
-
 .trend-icon {
     font-weight: bold;
     margin-right: 0.25rem;
