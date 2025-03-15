@@ -715,15 +715,6 @@ header {
     margin-bottom: 0;
 }
 
-.graph-section {
-    background: white;
-    border-radius: 12px;
-    padding: 1.5rem;
-    margin-top: 2rem;
-    box-shadow: var(--card-shadow);
-    display: none;
-}
-
 .graph-header {
     margin-bottom: 1.5rem;
 }
